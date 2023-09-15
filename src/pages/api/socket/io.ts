@@ -13,7 +13,7 @@ export default function handler(
 	res: NextApiResponseServerIo,
 ) {
 	if (!res.socket.server.io) {
-		const path = "/api/auth/socket/io";
+		const path = "/api/socket/io";
 		const httpServer: NetServer = res.socket.server as any;
 		const io = new ServerIO(httpServer, {
 			path: path,
