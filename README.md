@@ -1,34 +1,87 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Chat Application
 
-## Getting Started
+Real-time chat application impemented with NextJS 13.
 
-First, run the development server:
+## Requirements
+
+-   Docker
+-   Docker Compose
+
+## Built with
+
+-   [![Next 13][Next.js]][Next-url]
+-   [![Tailwind][Tailwind]][Tailwind-url]
+-   [![Typescript][Typescript]][Typescript-url]
+-   [![MongoDB][MongoDB]][MongoDB-url]
+-   [![Socket.io][Socket.io]][Socket.io-url]
+-   [![MUI][MUI]][MUI-url]
+
+## Deploy Locally
+
+1. Clone this repository to your local machine:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+git clone https://github.com/jvillegasl/nextjs-chat.git
+```
+
+2. Navigate to the project directory:
+
+```bash
+cd nextjs-chat
+```
+
+3. Start the application using Docker Compose:
+
+```bash
+docker-compose up
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Roadmap
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+-   [x] PoC socket.io (success)
+-   [ ] Implement authentication
+    -   [ ] Login and Register APIs
+    -   [ ] Login and Register pages
+    -   [ ] Config middleware
+-   [ ] Chat Backend
 
-## Learn More
+    -   [ ] Design models
+    -   [ ] CRUD APISs for messages
 
-To learn more about Next.js, take a look at the following resources:
+-   [ ] Chat Frontend
+    -   [ ] Sidebar (Contacts)
+    -   [ ] Searchbar
+    -   [ ] Conversation
+    -   [ ] Profile
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<!-- MARKDOWN LINKS & IMAGES -->
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+[Next.js]: https://img.shields.io/badge/next.js%2013-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
+[Next-url]: https://nextjs.org/
 
-## Deploy on Vercel
+<!--  -->
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+[Tailwind]: https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
+[Tailwind-url]: https://tailwindcss.com/
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<!--  -->
+
+[Typescript]: https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white
+[Typescript-url]: https://www.typescriptlang.org/
+
+<!--  -->
+
+[MongoDB]: https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white
+[MongoDB-url]: https://www.mongodb.com/es
+
+<!--  -->
+
+[Socket.io]: https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101
+[Socket.io-url]: https://socket.io/
+
+<!--  -->
+
+[MUI]: https://img.shields.io/badge/Material--UI-0081CB?style=for-the-badge&logo=mui&logoColor=white
+[MUI-url]: https://mui.com/
