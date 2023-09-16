@@ -1,13 +1,7 @@
 "use client";
 
 import { useSocket } from "@/hooks";
-import {
-	FormEvent,
-	FormEventHandler,
-	useEffect,
-	useRef,
-	useState,
-} from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 
 export default function Home() {
 	const { socket } = useSocket();
