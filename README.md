@@ -48,7 +48,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 -   [ ] Chat Backend
 
     -   [ ] Design models
-    -   [ ] CRUD APISs for messages
+    -   [ ] CRUD APIs for messages
 
 -   [ ] Chat Frontend
     -   [ ] Sidebar (Contacts)
