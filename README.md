@@ -40,6 +40,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Roadmap
 
+-   [x] Implement docker
+    -   [x] NextJS
+    -   [x] MongoDB
 -   [x] PoC socket.io (success)
 -   [ ] Implement authentication
     -   [ ] Login and Register APIs
