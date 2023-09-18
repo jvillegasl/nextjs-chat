@@ -46,7 +46,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 -   [x] PoC socket.io (success)
 -   [ ] Implement authentication
     -   [x] Design User model
-    -   [ ] Login and Register APIs
+    -   [x] Login and Register APIs
     -   [ ] Login and Register pages
     -   [ ] Config middleware
 -   [ ] Chat Backend
