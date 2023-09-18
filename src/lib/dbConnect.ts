@@ -43,6 +43,11 @@ async function dbConnect() {
 		console.log("MongoDB database connection established successfully");
 	});
 
+	mongoose.connection.on("error", (err) => {
+		console.log(err);
+		throw err;
+	});
+
 	return cached.conn;
 }
 
