@@ -6,7 +6,7 @@ import "@fontsource/roboto/700.css";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { SocketProvider } from "@/providers";
+import { NextAuthProvider, SocketProvider } from "@/providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,9 +22,11 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<body className={inter.className}>
-				<SocketProvider>{children}</SocketProvider>
-			</body>
+			<NextAuthProvider>
+				<SocketProvider>
+					<body className={inter.className + " m-0"}>{children}</body>
+				</SocketProvider>
+			</NextAuthProvider>
 		</html>
 	);
 }
