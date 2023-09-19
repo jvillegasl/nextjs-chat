@@ -5,7 +5,7 @@ import { z } from "zod";
 
 const SALT_WORK_FACTOR = 10;
 
-interface IUser {
+export interface IUser {
 	username: string;
 	email: string;
 	password: string;
