@@ -47,7 +47,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 -   [ ] Implement authentication
     -   [x] Design User model
     -   [x] Login and Register APIs
-    -   [ ] Login and Register pages
+    -   [x] Login and Register pages
     -   [x] Config middleware
 -   [ ] Chat Backend
 
