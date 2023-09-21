@@ -1,7 +1,7 @@
 import { LoginForm } from "@/components/auth";
 import { Box, Container, Link, Typography } from "@mui/material";
 
-export default function RegisterPage() {
+export default function LoginPage() {
 	return (
 		<Container component="main">
 			<Box className="flex flex-col items-center">
