@@ -10,7 +10,7 @@ import {
 	TextField,
 } from "@mui/material";
 import { LoginCallback, useLogin } from "@/hooks";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 type AlertState = {
@@ -25,6 +25,7 @@ export function LoginForm() {
 		handleLogin,
 		formState: { errors, isSubmitting },
 	} = useLogin();
+	const callbackUrl = useSearchParams()?.get("callbackUrl");
 	const router = useRouter();
 
 	const [alertState, setAlertState] = useState<AlertState>({ isOpen: false });
@@ -50,7 +51,7 @@ export function LoginForm() {
 			return;
 		}
 
-		router.push("/");
+		router.push(callbackUrl ?? "/");
 	};
 
 	return (
