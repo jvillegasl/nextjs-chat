@@ -2,7 +2,13 @@ import { Schema } from "mongoose";
 import uniqueValidator from "mongoose-unique-validator";
 import bcrypt from "bcrypt";
 import { z } from "zod";
-import { IUser, IUserClient, IUserMethods, IUserModel } from "..";
+import {
+	IConversationDocument,
+	IUser,
+	IUserClient,
+	IUserMethods,
+	IUserModel,
+} from "..";
 
 const SALT_WORK_FACTOR = 10;
 
@@ -78,11 +84,17 @@ UserSchema.methods.authPassword = async function (candidatePassword: string) {
 UserSchema.methods.toClient = function () {
 	var obj = this;
 
+	const conversationsDocs: IConversationDocument[] | null = obj.conversations;
+
+	const conversations = conversationsDocs
+		? conversationsDocs.map((t: any) => t.toClient())
+		: [];
+
 	const out: IUserClient = {
 		id: obj.id,
 		email: obj.email,
 		username: obj.username,
-		conversations: obj.conversations.toClient() ?? [],
+		conversations,
 	};
 
 	return out;

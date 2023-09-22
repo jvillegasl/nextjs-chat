@@ -1,5 +1,5 @@
 import { Document, Model } from "mongoose";
-import { IConversationDocument } from "..";
+import { IConversationClient, IConversationDocument } from "..";
 
 export interface IUser {
 	username: string;
@@ -11,7 +11,7 @@ export interface IUserClient {
 	id: string;
 	username: string;
 	email: string;
-	conversations: any[];
+	conversations: IConversationClient[];
 }
 
 export interface IUserMethods {
