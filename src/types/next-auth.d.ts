@@ -1,10 +1,9 @@
 import NextAuth from "next-auth/next";
 import { JWT } from "next-auth/jwt";
-import { IUser } from "@/models";
+import { IUser, IUserClient } from "@/models";
 
 declare module "next-auth" {
-	interface User extends Pick<IUser, "username" | "email"> {}
-	interface AdapterUser extends User {}
+	type User = IUserClient;
 
 	interface Session {
 		user: User;
