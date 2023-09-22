@@ -25,7 +25,7 @@ export async function POST(request: Request) {
 			);
 		}
 
-		const { password: hashedPassword, ...user } = refUser.toJSON();
+		const user = refUser.toClient();
 
 		return Response.json({ user }, { status: 200 });
 	});
