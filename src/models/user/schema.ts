@@ -1,23 +1,12 @@
-import { Model, Schema, model, models } from "mongoose";
+import { Schema } from "mongoose";
 import uniqueValidator from "mongoose-unique-validator";
 import bcrypt from "bcrypt";
 import { z } from "zod";
+import { IUser, IUserClient, IUserMethods, IUserModel } from "..";
 
 const SALT_WORK_FACTOR = 10;
 
-export interface IUser {
-	username: string;
-	email: string;
-	password: string;
-}
-
-interface IUserMethods {
-	authPassword(candidatePassword: string): Promise<boolean>;
-}
-
-type UserModel = Model<IUser, {}, IUserMethods>;
-
-const UserSchema = new Schema<IUser, UserModel, IUserMethods>(
+export const UserSchema = new Schema<IUser, IUserModel, IUserMethods>(
 	{
 		username: {
 			type: String,
@@ -46,11 +35,21 @@ const UserSchema = new Schema<IUser, UserModel, IUserMethods>(
 			select: false,
 		},
 	},
-	{ timestamps: true },
+	{
+		timestamps: true,
+		toJSON: { virtuals: true },
+		toObject: { virtuals: true },
+	},
 );
 
 UserSchema.plugin(uniqueValidator, {
 	message: "The {PATH} provided is already in use",
+});
+
+UserSchema.virtual("conversations", {
+	ref: "Conversation",
+	localField: "_id",
+	foreignField: "participants",
 });
 
 UserSchema.pre("save", function (next) {
@@ -76,5 +75,15 @@ UserSchema.methods.authPassword = async function (candidatePassword: string) {
 	return isMatch;
 };
 
-export const User: UserModel =
-	models.User || model<IUser, UserModel>("User", UserSchema);
+UserSchema.methods.toClient = function () {
+	var obj = this;
+
+	const out: IUserClient = {
+		id: obj.id,
+		email: obj.email,
+		username: obj.username,
+		conversations: obj.conversations.toClient() ?? [],
+	};
+
+	return out;
+};
