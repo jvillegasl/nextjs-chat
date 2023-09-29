@@ -28,7 +28,7 @@ export const authOptions: NextAuthOptions = {
 					throw new Error(JSON.stringify(data));
 				}
 
-				const user = data;
+				const user = data.user;
 
 				return user;
 			},
