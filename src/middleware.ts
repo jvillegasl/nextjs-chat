@@ -9,5 +9,5 @@ export default withAuth(function middleware(req) {}, {
 });
 
 export const config = {
-	matcher: ["/", "/api/auth/:path*"],
+	matcher: ["/", "/chat", "/api/socket/messages", "/api/auth/:path*"],
 };
