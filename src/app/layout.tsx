@@ -23,9 +23,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<NextAuthProvider>
-				<SocketProvider>
-					<body className={inter.className + " m-0"}>{children}</body>
-				</SocketProvider>
+				<body className={inter.className + " m-0"}>{children}</body>
 			</NextAuthProvider>
 		</html>
 	);
