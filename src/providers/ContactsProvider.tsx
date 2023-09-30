@@ -9,7 +9,7 @@ import {
 } from "react";
 import { IUserClient } from "@/models";
 
-type ContactsRecord = Partial<Record<string, IUserClient>>;
+type ContactsRecord = Prettify<Partial<Record<string, IUserClient>>>;
 
 type ContactsContext = {
 	contacts: ContactsRecord;
