@@ -1,5 +1,4 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { dbConnect } from "@/lib";
 import { getServerSession } from "next-auth";
 import { ContactItemButton } from "./ContactItemButton";
 import { getContacts } from "@/actions";
