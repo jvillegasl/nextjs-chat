@@ -19,7 +19,7 @@ export async function ConversationsList() {
 					<li key={i}>
 						<pre>{JSON.stringify(t, null, 2)}</pre>
 
-						<ConversationItemButton conversationId={t.id} />
+						<ConversationItemButton conversation={t} />
 					</li>
 				))}
 			</ul>

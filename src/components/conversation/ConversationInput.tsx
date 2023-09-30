@@ -6,13 +6,13 @@ import { FormEventHandler, useRef } from "react";
 type ConversationInputProps = {};
 
 export function ConversationInput({}: ConversationInputProps) {
-	const { currentConversationId } = useConversation();
+	const { currentConversation } = useConversation();
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	const handleSubmit: FormEventHandler<HTMLFormElement> = function (e) {
 		e.preventDefault();
 
-		if (!currentConversationId) return;
+		if (!currentConversation) return;
 
 		const inputElement = inputRef.current;
 
@@ -28,7 +28,7 @@ export function ConversationInput({}: ConversationInputProps) {
 			},
 			body: JSON.stringify({
 				message,
-				conversationId: currentConversationId,
+				conversationId: currentConversation.id,
 			}),
 		}).then();
 	};

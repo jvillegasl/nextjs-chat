@@ -12,14 +12,14 @@ export function ContactItemButton({
 	userId,
 	contactId,
 }: ContactItemButtonProps) {
-	const { setCurrentConversationId } = useConversation();
+	const { setCurrentConversation } = useConversation();
 
 	async function handleClick() {
 		const conversation = await getOrCreateConversation(userId, contactId);
 
 		console.log(conversation);
 
-		setCurrentConversationId(conversation.id);
+		setCurrentConversation(conversation);
 	}
 
 	return <button onClick={handleClick}>Open/New Conversation</button>;

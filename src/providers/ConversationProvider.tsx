@@ -7,10 +7,13 @@ import {
 	createContext,
 	useState,
 } from "react";
+import { IConversationClient } from "@/models";
 
 type ConversationContext = {
-	currentConversationId?: string;
-	setCurrentConversationId: Dispatch<SetStateAction<string | undefined>>;
+	currentConversation?: IConversationClient;
+	setCurrentConversation: Dispatch<
+		SetStateAction<IConversationClient | undefined>
+	>;
 };
 
 type ConversationProviderProps = {
@@ -22,12 +25,15 @@ export const ConversationContext = createContext<ConversationContext | null>(
 );
 
 export function ConversationProvider({ children }: ConversationProviderProps) {
-	const [currentConversationId, setCurrentConversationId] =
-		useState<string>();
+	const [currentConversation, setCurrentConversation] =
+		useState<IConversationClient>();
 
 	return (
 		<ConversationContext.Provider
-			value={{ currentConversationId, setCurrentConversationId }}
+			value={{
+				currentConversation: currentConversation,
+				setCurrentConversation: setCurrentConversation,
+			}}
 		>
 			{children}
 		</ConversationContext.Provider>

@@ -1,18 +1,19 @@
 "use client";
 
 import { useConversation } from "@/hooks";
+import { IConversationClient } from "@/models";
 
 type ConversationItemButtonProps = {
-	conversationId: string;
+	conversation: IConversationClient;
 };
 
 export function ConversationItemButton({
-	conversationId,
+	conversation,
 }: ConversationItemButtonProps) {
-	const { setCurrentConversationId } = useConversation();
+	const { setCurrentConversation } = useConversation();
 
 	return (
-		<button onClick={() => setCurrentConversationId(conversationId)}>
+		<button onClick={() => setCurrentConversation(conversation)}>
 			Open Conversation
 		</button>
 	);
