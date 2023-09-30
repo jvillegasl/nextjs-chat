@@ -1,4 +1,4 @@
-import { Document, Model } from "mongoose";
+import { HydratedDocument, Model } from "mongoose";
 import { IConversationClient, IConversationDocument } from "..";
 
 export interface IUser {
@@ -24,8 +24,7 @@ export interface IUserVirtuals {
 }
 
 export interface IUserDocument
-	extends Document<unknown, {}, IUser>,
-		IUserVirtuals {}
+	extends HydratedDocument<IUser & IUserVirtuals> {}
 
 export interface IUserModel
 	extends Model<IUser, {}, IUserMethods, IUserVirtuals> {}

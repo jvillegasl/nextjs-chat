@@ -1,4 +1,4 @@
-import { Model, Types, Document } from "mongoose";
+import { Model, Types, HydratedDocument } from "mongoose";
 
 export interface IMessage {
 	content: string;
@@ -17,7 +17,6 @@ export interface IMessageMethods {
 }
 
 export interface IMessageDocument
-	extends Document<unknown, {}, IMessage>,
-		IMessageMethods {}
+	extends HydratedDocument<IMessage & IMessageMethods> {}
 
 export interface MessageModel extends Model<IMessage, {}, IMessageMethods> {}

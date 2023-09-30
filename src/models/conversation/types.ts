@@ -1,4 +1,4 @@
-import { Types, Document, Model } from "mongoose";
+import { Types, Model, HydratedDocument } from "mongoose";
 import { IMessageDocument } from "..";
 
 export interface IConversation {
@@ -7,6 +7,7 @@ export interface IConversation {
 
 export interface IConversationClient {
 	id: string;
+	participants: string[];
 }
 
 export interface IConversationMethods {
@@ -18,9 +19,9 @@ export interface IConversationVirtuals {
 }
 
 export interface IConversationDocument
-	extends Document<unknown, {}, IConversation>,
-		IConversationVirtuals,
-		IConversationMethods {}
+	extends HydratedDocument<
+		IConversation & IConversationVirtuals & IConversationMethods
+	> {}
 
 export interface IConversationModel
 	extends Model<
