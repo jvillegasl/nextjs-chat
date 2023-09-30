@@ -9,8 +9,6 @@ export async function ContactsList() {
 
 	if (!session) throw new Error("Session not found");
 
-	await dbConnect();
-
 	const contacts = await getContacts(session.user.id);
 
 	return (
