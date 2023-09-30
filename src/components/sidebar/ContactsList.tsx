@@ -1,8 +1,8 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { dbConnect } from "@/lib";
-import { User } from "@/models";
 import { getServerSession } from "next-auth";
 import { ContactItemButton } from "./ContactItemButton";
+import { getContacts } from "@/actions";
 
 export async function ContactsList() {
 	const session = await getServerSession(authOptions);
@@ -11,8 +11,7 @@ export async function ContactsList() {
 
 	await dbConnect();
 
-	const data = await User.find({ _id: { $ne: session.user.id } });
-	const contacts = data.map((t) => t.toClient());
+	const contacts = await getContacts(session.user.id);
 
 	return (
 		<div>
