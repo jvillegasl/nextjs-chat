@@ -23,7 +23,7 @@ export interface IUserVirtuals {
 }
 
 export interface IUserDocument
-	extends HydratedDocument<IUser & IUserVirtuals> {}
+	extends HydratedDocument<IUser & IUserVirtuals & IUserMethods> {}
 
 export interface IUserModel
 	extends Model<IUser, {}, IUserMethods, IUserVirtuals> {}
