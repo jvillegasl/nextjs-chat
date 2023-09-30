@@ -1,12 +1,16 @@
-import { ChatProvider, ContactsProvider, SocketProvider } from "@/providers";
+import {
+	ConversationProvider,
+	ContactsProvider,
+	SocketProvider,
+} from "@/providers";
 import { PropsWithChildren } from "react";
 
 export default function ChatLayout({ children }: PropsWithChildren) {
 	return (
 		<ContactsProvider>
-			<ChatProvider>
+			<ConversationProvider>
 				<SocketProvider>{children}</SocketProvider>
-			</ChatProvider>
+			</ConversationProvider>
 		</ContactsProvider>
 	);
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { getOrCreateConversation } from "@/actions";
-import { useChat } from "@/hooks";
+import { useConversation } from "@/hooks";
 
 type ContactItemButtonProps = {
 	userId: string;
@@ -12,7 +12,7 @@ export function ContactItemButton({
 	userId,
 	contactId,
 }: ContactItemButtonProps) {
-	const { setCurrentConversationId } = useChat();
+	const { setCurrentConversationId } = useConversation();
 
 	async function handleClick() {
 		const conversation = await getOrCreateConversation(userId, contactId);

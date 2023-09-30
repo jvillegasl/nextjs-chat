@@ -1,6 +1,6 @@
 "use client";
 
-import { useChat } from "@/hooks";
+import { useConversation } from "@/hooks";
 
 type ConversationItemButtonProps = {
 	conversationId: string;
@@ -9,7 +9,7 @@ type ConversationItemButtonProps = {
 export function ConversationItemButton({
 	conversationId,
 }: ConversationItemButtonProps) {
-	const { setCurrentConversationId } = useChat();
+	const { setCurrentConversationId } = useConversation();
 
 	return (
 		<button onClick={() => setCurrentConversationId(conversationId)}>
