@@ -17,8 +17,6 @@ export function ContactItemButton({
 	async function handleClick() {
 		const conversation = await getOrCreateConversation(userId, contactId);
 
-		console.log(conversation);
-
 		setCurrentConversation(conversation);
 	}
 
