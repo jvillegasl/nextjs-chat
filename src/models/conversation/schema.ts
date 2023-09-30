@@ -28,12 +28,17 @@ ConversationSchema.virtual("messages", {
 	foreignField: "conversation",
 });
 
-ConversationSchema.methods.toClient = function (this: IConversationDocument) {
+ConversationSchema.methods.toClient = function (
+	this: IConversationDocument,
+	userId,
+) {
 	const obj = this;
 
 	const out: IConversationClient = {
 		id: obj.id,
-		participants: obj.participants.map((t) => t.toString()),
+		contactId: obj.participants
+			.find((t) => t.toString() !== userId)
+			?.toString()!,
 	};
 
 	return out;

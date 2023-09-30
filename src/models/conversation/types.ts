@@ -7,11 +7,11 @@ export interface IConversation {
 
 export interface IConversationClient {
 	id: string;
-	participants: string[];
+	contactId: string;
 }
 
 export interface IConversationMethods {
-	toClient(): IConversationClient;
+	toClient(userId: string): IConversationClient;
 }
 
 export interface IConversationVirtuals {

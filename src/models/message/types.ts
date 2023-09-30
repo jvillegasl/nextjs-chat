@@ -8,8 +8,8 @@ export interface IMessage {
 
 export interface IMessageClient {
 	content: string;
-	author: string;
-	conversation: string;
+	authorId: string;
+	conversationId: string;
 }
 
 export interface IMessageMethods {

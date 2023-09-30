@@ -22,9 +22,9 @@ MessageSchema.methods.toClient = function () {
 	const obj = this;
 
 	const out: IMessageClient = {
-		author: obj.author.toString(),
+		authorId: obj.author.toString(),
 		content: obj.content,
-		conversation: obj.author.toString(),
+		conversationId: obj.author.toString(),
 	};
 
 	return out;

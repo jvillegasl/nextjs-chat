@@ -6,6 +6,7 @@ import {
 	IConversationDocument,
 	IUser,
 	IUserClient,
+	IUserDocument,
 	IUserMethods,
 	IUserModel,
 } from "..";
@@ -81,20 +82,13 @@ UserSchema.methods.authPassword = async function (candidatePassword: string) {
 	return isMatch;
 };
 
-UserSchema.methods.toClient = function () {
+UserSchema.methods.toClient = function (this: IUserDocument) {
 	var obj = this;
-
-	const conversationsDocs: IConversationDocument[] | null = obj.conversations;
-
-	const conversations = conversationsDocs
-		? conversationsDocs.map((t: any) => t.toClient())
-		: [];
 
 	const out: IUserClient = {
 		id: obj.id,
 		email: obj.email,
 		username: obj.username,
-		conversations,
 	};
 
 	return out;
