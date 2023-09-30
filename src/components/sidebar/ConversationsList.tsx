@@ -1,41 +1,28 @@
-"use client";
-
 import { getConversations } from "@/actions";
-import { useConversation } from "@/hooks";
-import { IConversationClient } from "@/models";
-import { ChangeEventHandler, useEffect, useState } from "react";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
+import { ConversationItemButton } from "./ConversationItemButton";
 
-type ConversationsListProps = {
-	userId: string;
-};
+export async function ConversationsList() {
+	const session = await getServerSession(authOptions);
 
-export function ConversationsList({ userId }: ConversationsListProps) {
-	const { setCurrentConversationId } = useConversation();
-	const [conversations, setConversations] = useState<IConversationClient[]>(
-		[],
-	);
+	if (!session) throw new Error("Session not found");
 
-	function handleClick(id: string) {
-		setCurrentConversationId(!id ? undefined : id);
-	}
-
-	useEffect(() => {
-		getConversations(userId).then((t) => setConversations(t));
-	}, [userId, setConversations]);
+	const conversations = await getConversations(session.user.id);
 
 	return (
 		<div>
 			<h2>Conversations List</h2>
 
-			<p>{userId}</p>
+			<ul>
+				{conversations.map((t, i) => (
+					<li key={i}>
+						<pre>{JSON.stringify(t, null, 2)}</pre>
 
-			<pre>{JSON.stringify(conversations, null, 2)}</pre>
-
-			{conversations.map((t, i) => (
-				<button key={i} onClick={() => handleClick(t.id)}>
-					{t.id}
-				</button>
-			))}
+						<ConversationItemButton conversationId={t.id} />
+					</li>
+				))}
+			</ul>
 		</div>
 	);
 }
