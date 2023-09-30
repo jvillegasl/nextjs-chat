@@ -8,28 +8,26 @@ import {
 	useState,
 } from "react";
 
-type ConversationContext = {
+type ChatContext = {
 	currentConversationId?: string;
 	setCurrentConversationId: Dispatch<SetStateAction<string | undefined>>;
 };
 
-type ConversationProviderProps = {
+type ChatProviderProps = {
 	children: ReactNode;
 };
 
-export const ConversationContext = createContext<ConversationContext | null>(
-	null,
-);
+export const ChatContext = createContext<ChatContext | null>(null);
 
-export function ConversationProvider({ children }: ConversationProviderProps) {
+export function ChatProvider({ children }: ChatProviderProps) {
 	const [currentConversationId, setCurrentConversationId] =
 		useState<string>();
 
 	return (
-		<ConversationContext.Provider
+		<ChatContext.Provider
 			value={{ currentConversationId, setCurrentConversationId }}
 		>
 			{children}
-		</ConversationContext.Provider>
+		</ChatContext.Provider>
 	);
 }

@@ -1,12 +1,12 @@
 "use client";
 
-import { useConversation } from "@/hooks";
+import { useChat } from "@/hooks";
 import { FormEventHandler, useRef } from "react";
 
 type ConversationInputProps = {};
 
 export function ConversationInput({}: ConversationInputProps) {
-	const { currentConversationId } = useConversation();
+	const { currentConversationId } = useChat();
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	const handleSubmit: FormEventHandler<HTMLFormElement> = function (e) {

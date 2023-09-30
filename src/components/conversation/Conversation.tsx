@@ -1,7 +1,7 @@
 "use client";
 
 import { getMessages } from "@/actions/getMessages";
-import { useConversation, useSocket } from "@/hooks";
+import { useChat, useSocket } from "@/hooks";
 import { useEffect, useState } from "react";
 import { ConversationInput } from "./ConversationInput";
 import { IMessageClient } from "@/models";
@@ -10,7 +10,7 @@ type ConversationProps = {};
 
 export function Conversation({}: ConversationProps) {
 	const { socket } = useSocket();
-	const { currentConversationId } = useConversation();
+	const { currentConversationId } = useChat();
 	const [messages, setMessages] = useState<IMessageClient[]>([]);
 
 	useEffect(() => {
@@ -39,13 +39,7 @@ export function Conversation({}: ConversationProps) {
 
 					<h3>Conversation ID: {currentConversationId}</h3>
 
-					<pre>
-						{JSON.stringify(
-							messages.map((t) => t.content),
-							null,
-							2,
-						)}
-					</pre>
+					<pre>{JSON.stringify(messages, null, 2)}</pre>
 				</>
 			)}
 		</div>
