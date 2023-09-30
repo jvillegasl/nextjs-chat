@@ -8,7 +8,7 @@ export async function getConversations(userId: string) {
 
 	const user = (await User.findById(userId).populate("conversations"))!;
 
-	const conversations = user.toClient().conversations;
+	const conversations = user.conversations;
 
-	return conversations;
+	return conversations.map((t) => t.toClient());
 }
