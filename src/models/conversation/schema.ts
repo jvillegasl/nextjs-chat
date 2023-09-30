@@ -1,9 +1,10 @@
 import { Schema } from "mongoose";
 import {
-	IConversationModel,
 	IConversation,
+	IConversationModel,
 	IConversationMethods,
 	IConversationClient,
+	IConversationDocument,
 } from ".";
 
 export const ConversationSchema = new Schema<
@@ -27,11 +28,12 @@ ConversationSchema.virtual("messages", {
 	foreignField: "conversation",
 });
 
-ConversationSchema.methods.toClient = function () {
+ConversationSchema.methods.toClient = function (this: IConversationDocument) {
 	const obj = this;
 
 	const out: IConversationClient = {
 		id: obj.id,
+		participants: obj.participants.map((t) => t.toString()),
 	};
 
 	return out;
