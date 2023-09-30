@@ -10,5 +10,5 @@ export async function getConversations(userId: string) {
 
 	const conversations = user.conversations;
 
-	return conversations.map((t) => t.toClient());
+	return conversations.map((t) => t.toClient(userId));
 }

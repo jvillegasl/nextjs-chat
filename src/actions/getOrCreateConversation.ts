@@ -11,7 +11,7 @@ export async function getOrCreateConversation(
 		participants: { $size: 2, $all: [userId, contactId] },
 	});
 
-	if (conversation) return conversation.toClient();
+	if (conversation) return conversation.toClient(userId);
 
 	const newConversation = await Conversation.create({
 		participants: [userId, contactId],
@@ -19,5 +19,5 @@ export async function getOrCreateConversation(
 
 	revalidatePath("/chat");
 
-	return newConversation.toClient();
+	return newConversation.toClient(userId);
 }
