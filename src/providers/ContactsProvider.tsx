@@ -9,7 +9,7 @@ import {
 } from "react";
 import { IUserClient } from "@/models";
 
-type ContactsRecord = Prettify<Partial<Record<string, IUserClient>>>;
+export type ContactsRecord = Prettify<Record<string, IUserClient>>;
 
 type ContactsContext = {
 	contacts: ContactsRecord;
@@ -18,15 +18,22 @@ type ContactsContext = {
 
 type ContactsProviderProps = {
 	children: ReactNode;
+	contacts?: ContactsRecord;
 };
 
 export const ContactsContext = createContext<ContactsContext | null>(null);
 
-export function ContactsProvider({ children }: ContactsProviderProps) {
-	const [contacts, setContacts] = useState<ContactsRecord>({});
+export function ContactsProvider({
+	children,
+	contacts = {},
+}: ContactsProviderProps) {
+	const [contactsState, setContactsState] =
+		useState<ContactsRecord>(contacts);
 
 	return (
-		<ContactsContext.Provider value={{ contacts, setContacts }}>
+		<ContactsContext.Provider
+			value={{ contacts: contactsState, setContacts: setContactsState }}
+		>
 			{children}
 		</ContactsContext.Provider>
 	);
