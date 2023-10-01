@@ -9,7 +9,7 @@ export async function POST(request: Request) {
 
 		const newUser = new User(data);
 
-		const { password, ...user } = (await newUser.save()).toJSON();
+		const user = (await newUser.save()).toClient();
 
 		return Response.json(user, { status: 201 });
 	});

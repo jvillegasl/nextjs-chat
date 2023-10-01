@@ -1,6 +1,4 @@
-import NextAuth from "next-auth/next";
-import { JWT } from "next-auth/jwt";
-import { IUser, IUserClient } from "@/models";
+import { IUserClient } from "@/models";
 
 declare module "next-auth" {
 	type User = IUserClient;

@@ -3,7 +3,6 @@ import uniqueValidator from "mongoose-unique-validator";
 import bcrypt from "bcrypt";
 import { z } from "zod";
 import {
-	IConversationDocument,
 	IUser,
 	IUserClient,
 	IUserDocument,
@@ -83,7 +82,7 @@ UserSchema.methods.authPassword = async function (candidatePassword: string) {
 };
 
 UserSchema.methods.toClient = function (this: IUserDocument) {
-	var obj = this;
+	const obj = this;
 
 	const out: IUserClient = {
 		id: obj.id,
