@@ -1,4 +1,4 @@
-import { ContactsList } from "./ContactsList";
+import { ContactsSearchBar } from "./ContactsSearchBar";
 import { ConversationsList } from "./ConversationsList";
 import { UserProfile } from "./UserProfile";
 
@@ -9,7 +9,7 @@ export function Sidebar() {
 
 			<UserProfile />
 
-			<ContactsList />
+			<ContactsSearchBar />
 
 			<ConversationsList />
 		</div>
