@@ -4,18 +4,14 @@ import { getOrCreateConversation } from "@/actions";
 import { useConversation } from "@/hooks";
 
 type ContactItemButtonProps = {
-	userId: string;
 	contactId: string;
 };
 
-export function ContactItemButton({
-	userId,
-	contactId,
-}: ContactItemButtonProps) {
+export function ContactItemButton({ contactId }: ContactItemButtonProps) {
 	const { setCurrentConversation } = useConversation();
 
 	async function handleClick() {
-		const conversation = await getOrCreateConversation(userId, contactId);
+		const conversation = await getOrCreateConversation(contactId);
 
 		setCurrentConversation(conversation);
 	}

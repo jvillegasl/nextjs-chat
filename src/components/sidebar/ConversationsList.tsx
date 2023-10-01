@@ -1,14 +1,8 @@
 import { getConversations } from "@/actions";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { getServerSession } from "next-auth";
 import { ConversationItemButton } from "./ConversationItemButton";
 
 export async function ConversationsList() {
-	const session = await getServerSession(authOptions);
-
-	if (!session) throw new Error("Session not found");
-
-	const conversations = await getConversations(session.user.id);
+	const conversations = await getConversations();
 
 	return (
 		<div>
