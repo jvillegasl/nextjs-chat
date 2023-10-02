@@ -39,6 +39,8 @@ ConversationSchema.methods.toClient = function (
 		contactId: obj.participants
 			.find((t) => t.toString() !== userId)
 			?.toString()!,
+		createdAt: obj.createdAt.toISOString(),
+		updatedAt: obj.updatedAt.toISOString(),
 	};
 
 	return out;
