@@ -1,6 +1,11 @@
 import { Schema } from "mongoose";
 import { IMessage } from "..";
-import { IMessageClient, IMessageMethods, MessageModel } from ".";
+import {
+	IMessageClient,
+	IMessageDocument,
+	IMessageMethods,
+	MessageModel,
+} from ".";
 
 export const MessageSchema = new Schema<
 	IMessage,
@@ -18,13 +23,15 @@ export const MessageSchema = new Schema<
 	{ timestamps: true },
 );
 
-MessageSchema.methods.toClient = function () {
+MessageSchema.methods.toClient = function (this: IMessageDocument) {
 	const obj = this;
 
 	const out: IMessageClient = {
 		authorId: obj.author.toString(),
 		content: obj.content,
 		conversationId: obj.author.toString(),
+		createdAt: obj.createdAt.toISOString(),
+		updatedAt: obj.updatedAt.toISOString(),
 	};
 
 	return out;
