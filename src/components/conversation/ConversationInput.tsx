@@ -19,6 +19,9 @@ export function ConversationInput({}: ConversationInputProps) {
 		if (!inputElement) return;
 
 		const message = inputElement.value;
+
+		if (!message) return;
+
 		inputElement.value = "";
 
 		fetch("/api/socket/messages", {
