@@ -39,10 +39,6 @@ export function Conversation({}: ConversationProps) {
 
 		const event = `${currentConversation.id}/chat:message:new`;
 
-		console.log(
-			"🚀 ~ file: Conversation.tsx:42 ~ useEffect ~ event:",
-			event,
-		);
 		if (!socket || socket.hasListeners(event)) return;
 
 		socket.on(event, (v) => setMessages((t) => [...t, v]));
@@ -60,23 +56,32 @@ export function Conversation({}: ConversationProps) {
 
 					<ul>
 						{messages.map((t, i) => {
-							if (t.authorId === session?.user.id) {
-								return (
-									<li key={i} className="text-blue-500">
-										<span>{session.user.username}: </span>
-
-										<span>{t.content}</span>
-									</li>
-								);
-							}
+							const createdAt = new Date(t.createdAt);
+							const username =
+								t.authorId === session?.user.id
+									? session.user.username
+									: contacts[t.authorId]?.username;
+							const classname =
+								t.authorId === session?.user.id
+									? "text-blue-500"
+									: "text-red-500";
 
 							return (
-								<li key={i} className="text-red-500">
-									<span>
-										{contacts[t.authorId]?.username}:
-									</span>
+								<li key={i} className={classname}>
+									<div className="flex">
+										<span>{username}:</span>
 
-									<span>{t.content}</span>
+										<span>{t.content}</span>
+
+										<span className="ml-auto">
+											{createdAt.getHours()}:
+											{createdAt
+												.getMinutes()
+												.toLocaleString("en-US", {
+													minimumIntegerDigits: 2,
+												})}
+										</span>
+									</div>
 								</li>
 							);
 						})}
