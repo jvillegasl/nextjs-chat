@@ -37,8 +37,12 @@ export function Conversation({}: ConversationProps) {
 	useEffect(() => {
 		if (!currentConversation) return;
 
-		const event = `${currentConversation}/chat:message:new`;
+		const event = `${currentConversation.id}/chat:message:new`;
 
+		console.log(
+			"🚀 ~ file: Conversation.tsx:42 ~ useEffect ~ event:",
+			event,
+		);
 		if (!socket || socket.hasListeners(event)) return;
 
 		socket.on(event, (v) => setMessages((t) => [...t, v]));
