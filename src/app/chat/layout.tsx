@@ -15,10 +15,10 @@ export default async function ChatLayout({ children }: PropsWithChildren) {
 	);
 
 	return (
-		<ContactsProvider contacts={contactsRecord}>
-			<ConversationProvider>
+		<ConversationProvider>
+			<ContactsProvider contacts={contactsRecord}>
 				<SocketProvider>{children}</SocketProvider>
-			</ConversationProvider>
-		</ContactsProvider>
+			</ContactsProvider>
+		</ConversationProvider>
 	);
 }
