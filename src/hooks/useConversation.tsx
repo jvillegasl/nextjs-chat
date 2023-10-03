@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ConversationContext } from "@/providers";
+import { ConversationContext } from "@/contexts";
 
 export function useConversation() {
 	const context = useContext(ConversationContext);

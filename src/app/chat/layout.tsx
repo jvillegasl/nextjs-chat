@@ -2,10 +2,10 @@ import {
 	ConversationProvider,
 	ContactsProvider,
 	SocketProvider,
-	ContactsRecord,
 } from "@/providers";
 import { PropsWithChildren } from "react";
 import { getContacts } from "@/actions";
+import { ContactsRecord } from "@/contexts";
 
 export default async function ChatLayout({ children }: PropsWithChildren) {
 	const contacts = await getContacts();
@@ -15,10 +15,12 @@ export default async function ChatLayout({ children }: PropsWithChildren) {
 	);
 
 	return (
-		<ConversationProvider>
-			<ContactsProvider contacts={contactsRecord}>
-				<SocketProvider>{children}</SocketProvider>
-			</ContactsProvider>
-		</ConversationProvider>
+		<SocketProvider>
+			<ConversationProvider>
+				<ContactsProvider contacts={contactsRecord}>
+					{children}
+				</ContactsProvider>
+			</ConversationProvider>
+		</SocketProvider>
 	);
 }

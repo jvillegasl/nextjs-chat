@@ -1,4 +1,4 @@
-import { ContactsContext } from "@/providers";
+import { ContactsContext } from "@/contexts";
 import { useContext } from "react";
 
 export function useContacts() {

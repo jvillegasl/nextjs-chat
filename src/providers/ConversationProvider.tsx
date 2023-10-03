@@ -1,28 +1,12 @@
 "use client";
 
-import {
-	Dispatch,
-	ReactNode,
-	SetStateAction,
-	createContext,
-	useState,
-} from "react";
+import { ReactNode, useState } from "react";
 import { IConversationClient } from "@/models";
-
-type ConversationContext = {
-	currentConversation?: IConversationClient;
-	setCurrentConversation: Dispatch<
-		SetStateAction<IConversationClient | undefined>
-	>;
-};
+import { ConversationContext } from "@/contexts";
 
 type ConversationProviderProps = {
 	children: ReactNode;
 };
-
-export const ConversationContext = createContext<ConversationContext | null>(
-	null,
-);
 
 export function ConversationProvider({ children }: ConversationProviderProps) {
 	const [currentConversation, setCurrentConversation] =
