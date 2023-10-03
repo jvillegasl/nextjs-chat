@@ -1,34 +1,35 @@
 "use client";
 
-import {
-	Dispatch,
-	ReactNode,
-	SetStateAction,
-	createContext,
-	useState,
-} from "react";
-import { IUserClient } from "@/models";
-
-export type ContactsRecord = Prettify<Record<string, IUserClient>>;
-
-type ContactsContext = {
-	contacts: ContactsRecord;
-	setContacts: Dispatch<SetStateAction<ContactsRecord>>;
-};
+import { useEffect, ReactNode, useState } from "react";
+import { useSession } from "next-auth/react";
+import { useConversation } from "@/hooks";
+import { getContactById } from "@/actions";
+import { ContactsContext, ContactsRecord } from "@/contexts";
 
 type ContactsProviderProps = {
 	children: ReactNode;
 	contacts?: ContactsRecord;
 };
 
-export const ContactsContext = createContext<ContactsContext | null>(null);
-
 export function ContactsProvider({
 	children,
 	contacts = {},
 }: ContactsProviderProps) {
+	const { data: session } = useSession();
+	const { currentConversation } = useConversation();
+
 	const [contactsState, setContactsState] =
 		useState<ContactsRecord>(contacts);
+
+	useEffect(() => {
+		if (!currentConversation || !session) return;
+
+		if (currentConversation.contactId in contactsState) return;
+
+		getContactById(currentConversation.contactId).then((v) =>
+			setContactsState((t) => ({ ...t, [v.id]: v })),
+		);
+	}, [currentConversation, session, contactsState, setContactsState]);
 
 	return (
 		<ContactsContext.Provider
