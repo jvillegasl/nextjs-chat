@@ -1,14 +1,12 @@
 "use client";
 
-import { useSession } from "next-auth/react";
 import { useConversation, useContacts, useMessages } from "@/hooks";
 import { ConversationInput } from "./ConversationInput";
+import { Session } from "next-auth";
 
-type ConversationProps = {};
+type ConversationProps = { session: Session };
 
-export function Conversation({}: ConversationProps) {
-	const { data: session } = useSession();
-
+export function Conversation({ session }: ConversationProps) {
 	const { currentConversation } = useConversation();
 	const { contacts } = useContacts();
 	const { messages } = useMessages();
@@ -19,7 +17,9 @@ export function Conversation({}: ConversationProps) {
 
 			{!!currentConversation && (
 				<>
-					<ConversationInput />
+					<ConversationInput
+						conversationId={currentConversation.id}
+					/>
 
 					<h3>Conversation ID: {currentConversation.id}</h3>
 

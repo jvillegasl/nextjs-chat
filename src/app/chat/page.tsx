@@ -18,7 +18,7 @@ export default async function ChatPage() {
 			<div className="grid grid-cols-2">
 				<Sidebar />
 
-				<Conversation />
+				<Conversation session={session} />
 			</div>
 		</main>
 	);
