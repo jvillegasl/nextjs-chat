@@ -1,5 +1,5 @@
 import { getConversations } from "@/actions";
-import { ConversationItemButton } from "./ConversationItemButton";
+import { ConversationItem } from "./ConversationItem";
 
 export async function ConversationsList() {
 	const conversations = await getConversations();
@@ -11,9 +11,7 @@ export async function ConversationsList() {
 			<ul>
 				{conversations.map((t, i) => (
 					<li key={i}>
-						<pre>{JSON.stringify(t, null, 2)}</pre>
-
-						<ConversationItemButton conversation={t} />
+						<ConversationItem conversation={t} />
 					</li>
 				))}
 			</ul>
