@@ -22,7 +22,7 @@ export function useWritingSocket(
 		socket.on(event, (data) => {
 			clearTimeout(timerRef.current);
 			setUserWriting(data.username);
-			setIsWriting(data.isWriting);
+			setIsWriting(true);
 
 			const timer = setTimeout(() => {
 				setUserWriting("");
