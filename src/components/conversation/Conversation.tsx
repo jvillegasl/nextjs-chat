@@ -1,7 +1,7 @@
 "use client";
 
 import { useConversation, useContacts, useMessages } from "@/hooks";
-import { ConversationInput } from "./ConversationInput";
+import { ConversationInputBar } from "./ConversationInputBar";
 import { Session } from "next-auth";
 
 type ConversationProps = { session: Session };
@@ -17,7 +17,7 @@ export function Conversation({ session }: ConversationProps) {
 
 			{!!currentConversation && (
 				<>
-					<ConversationInput
+					<ConversationInputBar
 						conversationId={currentConversation.id}
 					/>
 

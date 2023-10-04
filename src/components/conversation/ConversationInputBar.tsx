@@ -3,11 +3,11 @@
 import { FormEventHandler } from "react";
 import { useWriteMessage } from "@/hooks";
 
-type ConversationInputProps = {
+type ConversationInputBarProps = {
 	conversationId: string;
 };
 
-export function ConversationInput({ conversationId }: ConversationInputProps) {
+export function ConversationInputBar({ conversationId }: ConversationInputBarProps) {
 	const { message, setMessage, handleChange } =
 		useWriteMessage(conversationId);
 
