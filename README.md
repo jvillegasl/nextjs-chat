@@ -44,7 +44,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
     -   [x] NextJS
     -   [x] MongoDB
 -   [x] PoC socket.io (success)
--   [ ] Implement authentication
+-   [x] Implement authentication
     -   [x] Design User model
     -   [x] Login and Register APIs
     -   [x] Login and Register pages
@@ -52,13 +52,24 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 -   [ ] Chat Backend
 
     -   [ ] Design models
-    -   [ ] CRUD APIs for messages
+        -   [ ] User
+        -   [ ] Message
+        -   [ ] Conversation
+    -   [x] APIs for messages
+    -   [ ] Sockets
+        -   [x] New Message
+        -   [x] Writing Message
+        -   [ ] New Conversation
 
 -   [ ] Chat Frontend
-    -   [ ] Sidebar (Contacts)
+    -   [ ] Sidebar
     -   [ ] Searchbar
     -   [ ] Conversation
     -   [ ] Profile
+    -   [ ] Sockets
+        -   [ ] New Message
+        -   [x] Writing Message
+        -   [ ] New Conversation
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
