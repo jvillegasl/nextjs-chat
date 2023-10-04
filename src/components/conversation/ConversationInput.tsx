@@ -1,44 +1,43 @@
 "use client";
 
-import { useConversation } from "@/hooks";
-import { FormEventHandler, useRef } from "react";
+import { FormEventHandler } from "react";
+import { useWriteMessage } from "@/hooks";
 
-type ConversationInputProps = {};
+type ConversationInputProps = {
+	conversationId: string;
+};
 
-export function ConversationInput({}: ConversationInputProps) {
-	const { currentConversation } = useConversation();
-	const inputRef = useRef<HTMLInputElement>(null);
+export function ConversationInput({ conversationId }: ConversationInputProps) {
+	const { message, setMessage, handleChange } =
+		useWriteMessage(conversationId);
 
-	const handleSubmit: FormEventHandler<HTMLFormElement> = function (e) {
+	const handleSubmit: FormEventHandler<HTMLFormElement> = async function (e) {
 		e.preventDefault();
-
-		if (!currentConversation) return;
-
-		const inputElement = inputRef.current;
-
-		if (!inputElement) return;
-
-		const message = inputElement.value;
 
 		if (!message) return;
 
-		inputElement.value = "";
+		setMessage("");
 
-		fetch("/api/socket/messages", {
+		await fetch("/api/socket/messages", {
 			method: "POST",
 			headers: {
 				"Content-type": "application/json",
 			},
 			body: JSON.stringify({
 				message,
-				conversationId: currentConversation.id,
+				conversationId,
 			}),
-		}).then();
+		});
 	};
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<input ref={inputRef} type="text" name="message" />
+			<input
+				type="text"
+				name="message"
+				value={message}
+				onChange={handleChange}
+			/>
 
 			<button type="submit">Submit</button>
 		</form>
