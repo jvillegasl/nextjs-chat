@@ -1,5 +1,5 @@
 import { Types, Model, HydratedDocument } from "mongoose";
-import { IMessageDocument } from "..";
+import { IMessageClient, IMessageDocument } from "..";
 import { Timestamps } from "@/types";
 
 export interface IConversation extends Timestamps {
@@ -9,12 +9,13 @@ export interface IConversation extends Timestamps {
 export interface IConversationClient {
 	id: string;
 	contactId: string;
+	lastMessage?: Pick<IMessageClient, "authorId" | "content" | "createdAt">;
 	createdAt: string;
 	updatedAt: string;
 }
 
 export interface IConversationMethods {
-	toClient(userId: string): IConversationClient;
+	toClient(userId: string): Promise<IConversationClient>;
 }
 
 export interface IConversationVirtuals {

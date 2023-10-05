@@ -6,6 +6,7 @@ import {
 	IConversationClient,
 	IConversationDocument,
 } from ".";
+import { IMessageDocument } from "..";
 
 export const ConversationSchema = new Schema<
 	IConversation,
@@ -28,11 +29,26 @@ ConversationSchema.virtual("messages", {
 	foreignField: "conversation",
 });
 
-ConversationSchema.methods.toClient = function (
+ConversationSchema.methods.toClient = async function (
 	this: IConversationDocument,
 	userId,
 ) {
 	const obj = this;
+
+	await obj.populate("messages");
+
+	const messages = obj.messages.sort(
+		(a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
+	);
+
+	const lastMessageDocument: IMessageDocument | undefined = messages[0];
+
+	let lastMessage: IConversationClient["lastMessage"];
+
+	if (lastMessageDocument) {
+		const { authorId, content, createdAt } = lastMessageDocument.toClient();
+		lastMessage = { authorId, content, createdAt };
+	}
 
 	const out: IConversationClient = {
 		id: obj.id,
@@ -41,6 +57,7 @@ ConversationSchema.methods.toClient = function (
 			?.toString()!,
 		createdAt: obj.createdAt.toISOString(),
 		updatedAt: obj.updatedAt.toISOString(),
+		lastMessage,
 	};
 
 	return out;
