@@ -18,5 +18,9 @@ export async function getConversations() {
 
 	const conversations = user.conversations;
 
-	return conversations.map((t) => t.toClient(userId));
+	const promises = conversations.map(async (t) => {
+		return await t.toClient(userId);
+	});
+
+	return Promise.all(promises);
 }
