@@ -5,12 +5,14 @@ export interface IUser {
 	username: string;
 	email: string;
 	password: string;
+	picture: string;
 }
 
 export interface IUserClient {
 	id: string;
 	username: string;
 	email: string;
+	picture: string;
 }
 
 export interface IUserMethods {

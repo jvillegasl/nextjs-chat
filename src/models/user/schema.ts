@@ -40,6 +40,10 @@ export const UserSchema = new Schema<IUser, IUserModel, IUserMethods>(
 			minlength: [8, "Password must have at least 8 characters"],
 			select: false,
 		},
+		picture: {
+			type: String,
+			required: [true, "Profile picture is required"],
+		},
 	},
 	{
 		timestamps: true,
@@ -88,6 +92,7 @@ UserSchema.methods.toClient = function (this: IUserDocument) {
 		id: obj.id,
 		email: obj.email,
 		username: obj.username,
+		picture: obj.picture,
 	};
 
 	return out;
