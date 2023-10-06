@@ -8,6 +8,16 @@ const nextConfig = {
 
 		return config;
 	},
+	images: {
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'ui-avatars.com',
+				port: '',
+				pathname: '/api/**'
+			}
+		]
+	},
 	experimental: {
 		serverActions: true,
 	},
