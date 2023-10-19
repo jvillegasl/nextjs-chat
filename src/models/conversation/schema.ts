@@ -6,7 +6,7 @@ import {
 	IConversationClient,
 	IConversationDocument,
 } from ".";
-import { IMessageDocument } from "..";
+import { IMessageDocument, IUserDocument } from "..";
 
 export const ConversationSchema = new Schema<
 	IConversation,
@@ -33,9 +33,10 @@ ConversationSchema.methods.toClient = async function (
 	this: IConversationDocument,
 	userId,
 ) {
-	const obj = this;
-
-	await obj.populate("messages");
+	const obj = await this.populate<{ participants: IUserDocument[] }>([
+		"messages",
+		"participants",
+	]);
 
 	const messages = obj.messages.sort(
 		(a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
@@ -50,14 +51,15 @@ ConversationSchema.methods.toClient = async function (
 		lastMessage = { authorId, content, createdAt };
 	}
 
+	const contact = obj.participants.find((t) => t.id !== userId)!;
+
 	const out: IConversationClient = {
 		id: obj.id,
-		contactId: obj.participants
-			.find((t) => t.toString() !== userId)
-			?.toString()!,
+		contactId: contact.id,
 		createdAt: obj.createdAt.toISOString(),
 		updatedAt: obj.updatedAt.toISOString(),
 		lastMessage,
+		picture: contact.picture,
 	};
 
 	return out;

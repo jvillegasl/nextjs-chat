@@ -12,6 +12,7 @@ export interface IConversationClient {
 	lastMessage?: Pick<IMessageClient, "authorId" | "content" | "createdAt">;
 	createdAt: string;
 	updatedAt: string;
+	picture: string;
 }
 
 export interface IConversationMethods {
