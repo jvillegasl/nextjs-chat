@@ -1,5 +1,5 @@
-import { getConversations } from "@/actions";
 import { ConversationItem } from "./ConversationItem";
+import { getConversations } from "@/actions";
 
 export async function ConversationsList() {
 	const conversations = await getConversations();
@@ -13,8 +13,6 @@ export async function ConversationsList() {
 
 	return (
 		<div>
-			<h2>Conversations List</h2>
-
 			<ul>
 				{orderedConversations.map((t, i) => (
 					<li key={i}>

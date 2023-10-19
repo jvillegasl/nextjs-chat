@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { IConversationClient } from "@/models";
 import { useContacts, useConversation, useWritingSocket } from "@/hooks";
+import { getLastMessageDate } from "@/utils";
 
 type ConversationItemProps = {
 	conversation: IConversationClient;
@@ -13,20 +15,54 @@ export function ConversationItem({ conversation }: ConversationItemProps) {
 	const { isWriting, userWriting } = useWritingSocket(conversation.id);
 
 	const conversationName = contacts[conversation.contactId].username;
+	const lastMessage = conversation.lastMessage;
+
+	function getConversationInfo() {
+		if (isWriting) {
+			return (
+				<span className="italic text-green-500">
+					{userWriting} is Writing...
+				</span>
+			);
+		}
+
+		if (!!lastMessage) {
+			return <span className="opacity-60">{lastMessage.content}</span>;
+		}
+
+		return (
+			<span className="italic opacity-60">Write your first message</span>
+		);
+	}
 
 	return (
-		<div>
-			<h3>{conversationName}</h3>
+		<div
+			className="flex h-[4.5rem] w-full cursor-pointer"
+			onClick={() => setCurrentConversation(conversation)}
+		>
+			<div className="flex flex-row items-center pl-3 pr-4">
+				<Image
+					className="rounded-full"
+					src={conversation.picture}
+					alt={`${conversationName} conversation picture`}
+					width={48}
+					height={48}
+				/>
+			</div>
 
-			<pre>{JSON.stringify(conversation, null, 2)}</pre>
+			<div className="flex flex-grow flex-col justify-center pr-4">
+				<div className="flex flex-row">
+					<span className="flex-grow">{conversationName}</span>
 
-			{isWriting && (
-				<p className="text-green-500">{userWriting} is Writing</p>
-			)}
+					{!!lastMessage && (
+						<span className="text-sm opacity-60">
+							{getLastMessageDate(lastMessage.createdAt)}
+						</span>
+					)}
+				</div>
 
-			<button onClick={() => setCurrentConversation(conversation)}>
-				Open Conversation
-			</button>
+				<div className="text-sm">{getConversationInfo()}</div>
+			</div>
 		</div>
 	);
 }
