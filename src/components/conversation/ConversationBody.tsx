@@ -3,6 +3,7 @@ import { IMessageClient, IUserClient } from "@/models";
 import { getMessageHour } from "@/utils";
 import { Message } from "./Message";
 import { useEffect, useRef } from "react";
+import { Box, CircularProgress } from "@mui/material";
 
 type ConversationBodyProps = {
 	conversationId: string;
@@ -22,13 +23,13 @@ export function ConversationBody({
 	const lastSeenMessageRef = useRef<HTMLLIElement>(null);
 
 	useEffect(() => {
+		if (isFetching) return;
+
 		if (!lastSeenMessageRef) return;
 
 		const lastSeenMessageElement = lastSeenMessageRef.current;
 
 		if (!lastSeenMessageElement) return;
-
-		if (isFetching) return;
 
 		lastSeenMessageElement.scrollIntoView(false);
 	}, [isFetching, conversationId]);
@@ -36,31 +37,43 @@ export function ConversationBody({
 	return (
 		<div
 			ref={bodyRef}
-			className="h-0 flex-grow overflow-y-auto bg-slate-300"
+			className="flex h-0 flex-grow flex-col overflow-y-auto bg-slate-300"
 			style={{ backgroundImage: `url(${BG.src})` }}
 		>
-			<div className="h-10"></div>
-
-			<ul>
-				{messages.map((t, i) => {
-					const hour = getMessageHour(t.createdAt);
-
-					const liProps =
-						i === messages.length - 1
-							? { ref: lastSeenMessageRef }
-							: {};
-
-					return (
-						<li key={i} className="px-4 pb-1" {...liProps}>
-							<Message
-								content={t.content}
-								hour={hour}
-								alignEnd={t.authorId === user.id}
-							/>
-						</li>
-					);
-				})}
-			</ul>
+			{isFetching ? (
+				<Box
+					sx={{
+						display: "flex",
+						flexGrow: 1,
+						alignItems: "center",
+						justifyContent: "center",
+					}}
+				>
+					<CircularProgress size={64} />
+				</Box>
+			) : (
+				<>
+					<div className="h-10"></div>
+					<ul>
+						{messages.map((t, i) => {
+							const hour = getMessageHour(t.createdAt);
+							const liProps =
+								i === messages.length - 1
+									? { ref: lastSeenMessageRef }
+									: {};
+							return (
+								<li key={i} className="px-4 pb-1" {...liProps}>
+									<Message
+										content={t.content}
+										hour={hour}
+										alignEnd={t.authorId === user.id}
+									/>
+								</li>
+							);
+						})}
+					</ul>
+				</>
+			)}
 		</div>
 	);
 }
