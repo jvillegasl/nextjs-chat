@@ -1,19 +1,30 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { IMessageClient } from "@/models";
 import { getMessages } from "@/actions";
 import { useConversation, useSocket } from ".";
+
+type MessagesRecord = Record<string, IMessageClient[]>;
 
 export function useMessages() {
 	const { socket } = useSocket();
 	const { currentConversation } = useConversation();
 
-	const [messages, setMessages] = useState<IMessageClient[]>([]);
+	const [messagesRecord, setMessagesRecord] = useState<MessagesRecord>({});
+	const messages = useMemo<IMessageClient[]>(() => {
+		if (!currentConversation) return [];
+
+		return messagesRecord[currentConversation.id] ?? [];
+	}, [currentConversation, messagesRecord]);
 
 	useEffect(() => {
 		if (!currentConversation) return;
 
-		getMessages(currentConversation.id).then((t) => setMessages(t));
-	}, [currentConversation]);
+		if (currentConversation.id in messagesRecord) return;
+
+		getMessages(currentConversation.id).then((v) =>
+			setMessagesRecord((t) => ({ ...t, [currentConversation.id]: v })),
+		);
+	}, [currentConversation, messagesRecord]);
 
 	useEffect(() => {
 		if (!currentConversation) return;
@@ -22,7 +33,15 @@ export function useMessages() {
 
 		if (!socket || socket.hasListeners(event)) return;
 
-		socket.on(event, (v) => setMessages((t) => [...t, v]));
+		socket.on(event, (v) =>
+			setMessagesRecord((t) => {
+				const newRecord = { ...t };
+
+				newRecord[currentConversation.id].push(v);
+
+				return newRecord;
+			}),
+		);
 	}, [socket, currentConversation]);
 
 	return { messages };
