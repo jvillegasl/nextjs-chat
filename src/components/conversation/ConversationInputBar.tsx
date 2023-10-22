@@ -2,12 +2,16 @@
 
 import { FormEventHandler } from "react";
 import { useWriteMessage } from "@/hooks";
+import { IconButton, TextField } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
 
 type ConversationInputBarProps = {
 	conversationId: string;
 };
 
-export function ConversationInputBar({ conversationId }: ConversationInputBarProps) {
+export function ConversationInputBar({
+	conversationId,
+}: ConversationInputBarProps) {
 	const { message, setMessage, handleChange } =
 		useWriteMessage(conversationId);
 
@@ -31,15 +35,26 @@ export function ConversationInputBar({ conversationId }: ConversationInputBarPro
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<input
-				type="text"
-				name="message"
-				value={message}
-				onChange={handleChange}
-			/>
+		<div className="h-16 px-4 py-3">
+			<form
+				className="flex flex-row items-center"
+				onSubmit={handleSubmit}
+			>
+				<TextField
+					className="flex-grow"
+					placeholder="Write a message"
+					autoComplete="off"
+					inputProps={{ sx: { paddingX: 1.5, paddingY: 1 } }}
+					value={message}
+					onChange={handleChange}
+				/>
 
-			<button type="submit">Submit</button>
-		</form>
+				{!!message && (
+					<IconButton type="submit">
+						<SendIcon />
+					</IconButton>
+				)}
+			</form>
+		</div>
 	);
 }

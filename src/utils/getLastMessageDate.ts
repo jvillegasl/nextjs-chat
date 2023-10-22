@@ -1,7 +1,7 @@
 import moment from "moment";
 
 export function getLastMessageDate(dateUTC: string) {
-	const date = moment.utc(dateUTC);
+	const date = moment.utc(dateUTC).local();
 	const currentDate = moment();
 
 	const diffDays = currentDate.diff(date, "days");

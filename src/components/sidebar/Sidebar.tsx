@@ -2,9 +2,13 @@ import { ContactsSearchBar } from "./ContactsSearchBar";
 import { ConversationsList } from "./ConversationsList";
 import { UserProfile } from "./UserProfile";
 
-export function Sidebar() {
+type SidebarProps = {
+	className?: string;
+};
+
+export function Sidebar({ className }: SidebarProps) {
 	return (
-		<div>
+		<div className={className}>
 			<UserProfile />
 
 			<ContactsSearchBar />

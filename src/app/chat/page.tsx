@@ -12,14 +12,10 @@ export default async function ChatPage() {
 	if (!session) return <h1>User not found</h1>;
 
 	return (
-		<main>
-			<h1>Chat</h1>
+		<main className="grid min-h-[100vh] grid-cols-12">
+			<Sidebar className="col-span-4" />
 
-			<div className="grid grid-cols-2">
-				<Sidebar />
-
-				<Conversation session={session} />
-			</div>
+			<Conversation className="col-span-8" session={session} />
 		</main>
 	);
 }

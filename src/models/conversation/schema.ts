@@ -60,6 +60,7 @@ ConversationSchema.methods.toClient = async function (
 		updatedAt: obj.updatedAt.toISOString(),
 		lastMessage,
 		picture: contact.picture,
+		name: contact.username,
 	};
 
 	return out;

@@ -13,6 +13,7 @@ export interface IConversationClient {
 	createdAt: string;
 	updatedAt: string;
 	picture: string;
+	name: string;
 }
 
 export interface IConversationMethods {

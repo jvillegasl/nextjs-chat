@@ -1,60 +1,34 @@
 "use client";
 
+import { Session } from "next-auth";
+import { clsx } from "clsx";
 import { useConversation, useContacts, useMessages } from "@/hooks";
 import { ConversationInputBar } from "./ConversationInputBar";
-import { Session } from "next-auth";
+import { ConversationHeader } from "./ConversationHeader";
+import { ConversationBody } from "./ConversationBody";
 
-type ConversationProps = { session: Session };
+type ConversationProps = { className?: string; session: Session };
 
-export function Conversation({ session }: ConversationProps) {
+export function Conversation({ className, session }: ConversationProps) {
 	const { currentConversation } = useConversation();
 	const { contacts } = useContacts();
 	const { messages } = useMessages();
 
 	return (
-		<div>
-			<h1>Conversation</h1>
-
+		<div className={clsx(className, "flex flex-col")}>
 			{!!currentConversation && (
 				<>
+					<ConversationHeader conversation={currentConversation} />
+
+					<ConversationBody
+						contacts={contacts}
+						messages={messages}
+						user={session.user}
+					/>
+
 					<ConversationInputBar
 						conversationId={currentConversation.id}
 					/>
-
-					<h3>Conversation ID: {currentConversation.id}</h3>
-
-					<ul>
-						{messages.map((t, i) => {
-							const createdAt = new Date(t.createdAt);
-							const username =
-								t.authorId === session?.user.id
-									? session.user.username
-									: contacts[t.authorId]?.username;
-							const classname =
-								t.authorId === session?.user.id
-									? "text-blue-500"
-									: "text-red-500";
-
-							return (
-								<li key={i} className={classname}>
-									<div className="flex">
-										<span>{username}:</span>
-
-										<span>{t.content}</span>
-
-										<span className="ml-auto">
-											{createdAt.getHours()}:
-											{createdAt
-												.getMinutes()
-												.toLocaleString("en-US", {
-													minimumIntegerDigits: 2,
-												})}
-										</span>
-									</div>
-								</li>
-							);
-						})}
-					</ul>
 				</>
 			)}
 		</div>
