@@ -15,7 +15,7 @@ export default async function ChatPage() {
 		<main className="grid min-h-[100vh] grid-cols-12">
 			<Sidebar className="col-span-4" />
 
-			<Conversation className="col-span-8" session={session} />
+			<Conversation className="col-span-8" user={session.user} />
 		</main>
 	);
 }

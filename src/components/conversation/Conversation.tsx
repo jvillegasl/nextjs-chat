@@ -1,15 +1,15 @@
 "use client";
 
-import { Session } from "next-auth";
 import { clsx } from "clsx";
 import { useConversation, useContacts, useMessages } from "@/hooks";
 import { ConversationInputBar } from "./ConversationInputBar";
 import { ConversationHeader } from "./ConversationHeader";
 import { ConversationBody } from "./ConversationBody";
+import { IUserClient } from "@/models";
 
-type ConversationProps = { className?: string; session: Session };
+type ConversationProps = { className?: string; user: IUserClient };
 
-export function Conversation({ className, session }: ConversationProps) {
+export function Conversation({ className, user }: ConversationProps) {
 	const { currentConversation } = useConversation();
 	const { contacts } = useContacts();
 	const { messages } = useMessages();
@@ -23,7 +23,7 @@ export function Conversation({ className, session }: ConversationProps) {
 					<ConversationBody
 						contacts={contacts}
 						messages={messages}
-						user={session.user}
+						user={user}
 					/>
 
 					<ConversationInputBar
