@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import { IMessageClient } from "@/models";
 import { getMessages } from "@/actions";
 import { useConversation, useSocket } from ".";
@@ -16,14 +16,21 @@ export function useMessages() {
 		return messagesRecord[currentConversation.id] ?? [];
 	}, [currentConversation, messagesRecord]);
 
+	const [isFetching, startTransition] = useTransition();
+
 	useEffect(() => {
 		if (!currentConversation) return;
 
 		if (currentConversation.id in messagesRecord) return;
 
-		getMessages(currentConversation.id).then((v) =>
-			setMessagesRecord((t) => ({ ...t, [currentConversation.id]: v })),
-		);
+		startTransition(async () => {
+			const fetchedMessages = await getMessages(currentConversation.id);
+
+			setMessagesRecord((t) => ({
+				...t,
+				[currentConversation.id]: fetchedMessages,
+			}));
+		});
 	}, [currentConversation, messagesRecord]);
 
 	useEffect(() => {
@@ -44,5 +51,5 @@ export function useMessages() {
 		);
 	}, [socket, currentConversation]);
 
-	return { messages };
+	return { messages, isFetching };
 }

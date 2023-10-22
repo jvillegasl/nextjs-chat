@@ -12,7 +12,7 @@ type ConversationProps = { className?: string; user: IUserClient };
 export function Conversation({ className, user }: ConversationProps) {
 	const { currentConversation } = useConversation();
 	const { contacts } = useContacts();
-	const { messages } = useMessages();
+	const { messages, isFetching } = useMessages();
 
 	return (
 		<div className={clsx(className, "flex flex-col")}>
@@ -21,9 +21,11 @@ export function Conversation({ className, user }: ConversationProps) {
 					<ConversationHeader conversation={currentConversation} />
 
 					<ConversationBody
+						conversationId={currentConversation.id}
 						contacts={contacts}
 						messages={messages}
 						user={user}
+						isFetching={isFetching}
 					/>
 
 					<ConversationInputBar

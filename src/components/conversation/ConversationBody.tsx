@@ -2,17 +2,41 @@ import BG from "@/assets/bg.png";
 import { IMessageClient, IUserClient } from "@/models";
 import { getMessageHour } from "@/utils";
 import { Message } from "./Message";
+import { useEffect, useRef } from "react";
 
 type ConversationBodyProps = {
+	conversationId: string;
 	messages: IMessageClient[];
 	user: IUserClient;
 	contacts: Record<string, IUserClient>;
+	isFetching: boolean;
 };
 
-export function ConversationBody({ messages, user }: ConversationBodyProps) {
+export function ConversationBody({
+	conversationId,
+	messages,
+	user,
+	isFetching,
+}: ConversationBodyProps) {
+	const bodyRef = useRef<HTMLDivElement>(null);
+	const lastSeenMessageRef = useRef<HTMLLIElement>(null);
+
+	useEffect(() => {
+		if (!lastSeenMessageRef) return;
+
+		const lastSeenMessageElement = lastSeenMessageRef.current;
+
+		if (!lastSeenMessageElement) return;
+
+		if (isFetching) return;
+
+		lastSeenMessageElement.scrollIntoView(false);
+	}, [isFetching, conversationId]);
+
 	return (
 		<div
-			className="flex-grow bg-slate-300"
+			ref={bodyRef}
+			className="h-0 flex-grow overflow-y-auto bg-slate-300"
 			style={{ backgroundImage: `url(${BG.src})` }}
 		>
 			<div className="h-10"></div>
@@ -21,8 +45,13 @@ export function ConversationBody({ messages, user }: ConversationBodyProps) {
 				{messages.map((t, i) => {
 					const hour = getMessageHour(t.createdAt);
 
+					const liProps =
+						i === messages.length - 1
+							? { ref: lastSeenMessageRef }
+							: {};
+
 					return (
-						<li key={i} className="mb-1 px-4">
+						<li key={i} className="px-4 pb-1" {...liProps}>
 							<Message
 								content={t.content}
 								hour={hour}
