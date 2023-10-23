@@ -6,6 +6,7 @@ import {
 import { PropsWithChildren } from "react";
 import { getContacts } from "@/actions";
 import { ContactsRecord } from "@/contexts";
+import { KeyBindingsWrapper } from "@/components";
 
 export default async function ChatLayout({ children }: PropsWithChildren) {
 	const contacts = await getContacts();
@@ -18,7 +19,7 @@ export default async function ChatLayout({ children }: PropsWithChildren) {
 		<SocketProvider>
 			<ConversationProvider>
 				<ContactsProvider contacts={contactsRecord}>
-					{children}
+					<KeyBindingsWrapper>{children}</KeyBindingsWrapper>
 				</ContactsProvider>
 			</ConversationProvider>
 		</SocketProvider>
