@@ -9,13 +9,16 @@ export default async function ChatPage() {
 
 	const session = await getServerSession(authOptions);
 
-	if (!session) return <h1>User not found</h1>;
+	if (!session) throw new Error("User Not Found");
 
 	return (
-		<main className="grid min-h-[100vh] grid-cols-12">
-			<Sidebar className="col-span-4" />
+		<main className="relative h-[100vh] bg-slate-200">
+			<div className="absolute left-0 right-0 top-0 h-32 bg-sky-400"></div>
 
-			<Conversation className="col-span-8" user={session.user} />
+			<div className="absolute inset-0 mx-auto grid max-w-[1600px] grid-cols-12 bg-white shadow-xl xl:inset-4">
+				<Sidebar className="col-span-4" />
+				<Conversation className="col-span-8" user={session.user} />
+			</div>
 		</main>
 	);
 }

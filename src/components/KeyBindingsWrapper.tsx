@@ -8,8 +8,6 @@ export function KeyBindingsWrapper({ children }: PropsWithChildren) {
 
 	useEffect(() => {
 		const escKeyCallback = (e: KeyboardEvent) => {
-			console.log(e.key);
-
 			if (e.key !== "Escape") return;
 
 			setCurrentConversation(undefined);
