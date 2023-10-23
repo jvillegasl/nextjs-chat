@@ -1,13 +1,11 @@
 "use client";
 
-import { useConversations, useNewConversationSocket } from "@/hooks";
+import { useConversations } from "@/hooks";
 import { ConversationItem } from "./ConversationItem";
 import { useMemo } from "react";
 
 export function ConversationsList() {
 	const { conversations } = useConversations();
-
-	useNewConversationSocket();
 
 	const orderedConversations = useMemo(
 		() =>
