@@ -7,7 +7,7 @@ type ConversationHeaderProps = {
 
 export function ConversationHeader({ conversation }: ConversationHeaderProps) {
 	return (
-		<div className="flex h-16 flex-row items-center border-0 border-l border-solid border-l-sky-200 bg-sky-300 px-4">
+		<div className="flex h-16 flex-row items-center bg-sky-300 px-4">
 			<div className="pr-4">
 				<Image
 					className="rounded-full"
