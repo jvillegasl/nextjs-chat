@@ -2,27 +2,32 @@
 
 import { ReactNode, useState } from "react";
 import { IConversationClient } from "@/models";
-import { ConversationContext } from "@/contexts";
-import { useNewConversationSocket } from "@/hooks";
+import { ConversationsContext } from "@/contexts";
 
 type ConversationProviderProps = {
 	children: ReactNode;
+	conversations: IConversationClient[];
 };
 
-export function ConversationProvider({ children }: ConversationProviderProps) {
+export function ConversationsProvider({
+	children,
+	conversations: _conversations,
+}: ConversationProviderProps) {
+	const [conversations, setConversations] =
+		useState<IConversationClient[]>(_conversations);
 	const [currentConversation, setCurrentConversation] =
 		useState<IConversationClient>();
 
-	useNewConversationSocket();
-
 	return (
-		<ConversationContext.Provider
+		<ConversationsContext.Provider
 			value={{
+				conversations,
+				setConversations,
 				currentConversation: currentConversation,
 				setCurrentConversation: setCurrentConversation,
 			}}
 		>
 			{children}
-		</ConversationContext.Provider>
+		</ConversationsContext.Provider>
 	);
 }

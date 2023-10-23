@@ -2,7 +2,7 @@
 
 import { useEffect, ReactNode, useState } from "react";
 import { useSession } from "next-auth/react";
-import { useConversation } from "@/hooks";
+import { useConversations } from "@/hooks";
 import { getContactById } from "@/actions";
 import { ContactsContext, ContactsRecord } from "@/contexts";
 
@@ -16,7 +16,7 @@ export function ContactsProvider({
 	contacts = {},
 }: ContactsProviderProps) {
 	const { data: session } = useSession();
-	const { currentConversation } = useConversation();
+	const { currentConversation } = useConversations();
 
 	const [contactsState, setContactsState] =
 		useState<ContactsRecord>(contacts);

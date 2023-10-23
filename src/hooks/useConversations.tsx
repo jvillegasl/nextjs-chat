@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { ConversationContext } from "@/contexts";
+import { ConversationsContext } from "@/contexts";
 
-export function useConversation() {
-	const context = useContext(ConversationContext);
+export function useConversations() {
+	const context = useContext(ConversationsContext);
 
 	if (!context) {
 		throw new Error(

@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useState, useTransition } from "react";
 import { IMessageClient } from "@/models";
 import { getMessages } from "@/actions";
-import { useConversation, useSocket } from ".";
+import { useConversations, useSocket } from ".";
 
 type MessagesRecord = Record<string, IMessageClient[]>;
 
 export function useMessages() {
 	const { socket } = useSocket();
-	const { currentConversation } = useConversation();
+	const { currentConversation } = useConversations();
 
 	const [messagesRecord, setMessagesRecord] = useState<MessagesRecord>({});
 	const messages = useMemo<IMessageClient[]>(() => {

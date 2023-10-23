@@ -1,10 +1,10 @@
 "use client";
 
-import { useConversation } from "@/hooks";
+import { useConversations } from "@/hooks";
 import { PropsWithChildren, useEffect } from "react";
 
 export function KeyBindingsWrapper({ children }: PropsWithChildren) {
-	const { setCurrentConversation } = useConversation();
+	const { setCurrentConversation } = useConversations();
 
 	useEffect(() => {
 		const escKeyCallback = (e: KeyboardEvent) => {

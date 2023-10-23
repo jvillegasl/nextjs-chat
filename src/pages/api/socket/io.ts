@@ -4,6 +4,8 @@ import { NextApiRequest } from "next";
 import { getServerSession } from "next-auth";
 import { Server as ServerIO, Socket } from "socket.io";
 import { parse } from "cookie";
+import { dbConnect } from "@/lib";
+import { Conversation } from "@/models";
 
 export const config = {
 	api: {
@@ -58,8 +60,18 @@ export default function handler(
 			socket.on("chat:conversation:new", async (t) => {
 				const event = `${t.contactId}/chat:conversation:new`;
 
+				await dbConnect();
+
+				const conversation = await Conversation.findById(
+					t.conversationId,
+				);
+
+				const conversationClient = await conversation?.toClient(
+					t.contactId,
+				);
+
 				socket.broadcast.emit(event, {
-					conversation: t.conversation,
+					conversation: conversationClient,
 				});
 			});
 		});

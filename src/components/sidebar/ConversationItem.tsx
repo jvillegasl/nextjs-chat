@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { IConversationClient } from "@/models";
-import { useContacts, useConversation, useWritingSocket } from "@/hooks";
+import { useConversations, useWritingSocket } from "@/hooks";
 import { getLastMessageDate } from "@/utils";
 
 type ConversationItemProps = {
@@ -10,11 +10,9 @@ type ConversationItemProps = {
 };
 
 export function ConversationItem({ conversation }: ConversationItemProps) {
-	const { setCurrentConversation } = useConversation();
-	const { contacts } = useContacts();
+	const { setCurrentConversation } = useConversations();
 	const { isWriting, userWriting } = useWritingSocket(conversation.id);
 
-	const conversationName = contacts[conversation.contactId].username;
 	const lastMessage = conversation.lastMessage;
 
 	function getConversationInfo() {
@@ -44,7 +42,7 @@ export function ConversationItem({ conversation }: ConversationItemProps) {
 				<Image
 					className="rounded-full"
 					src={conversation.picture}
-					alt={`${conversationName} conversation picture`}
+					alt={`${conversation.name} conversation picture`}
 					width={48}
 					height={48}
 				/>
@@ -52,7 +50,7 @@ export function ConversationItem({ conversation }: ConversationItemProps) {
 
 			<div className="flex flex-grow flex-col justify-center pr-4">
 				<div className="flex flex-row">
-					<span className="flex-grow">{conversationName}</span>
+					<span className="flex-grow">{conversation.name}</span>
 
 					{!!lastMessage && (
 						<span className="text-sm opacity-60">

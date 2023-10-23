@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import { useSocket } from ".";
+import { useConversations, useSocket } from ".";
 import { useSession } from "next-auth/react";
-import { revalidatePath } from "@/actions";
 
 export function useNewConversationSocket() {
 	const { socket } = useSocket();
 	const { data, status } = useSession();
+	const { setConversations } = useConversations();
 
 	useEffect(() => {
 		if (!socket || status !== "authenticated") return;
@@ -14,6 +14,8 @@ export function useNewConversationSocket() {
 
 		if (socket.hasListeners(event)) return;
 
-		socket.on(event, async () => revalidatePath("/chat"));
-	}, [socket, data, status]);
+		socket.on(event, (v) =>
+			setConversations((t) => [...t, v.conversation]),
+		);
+	}, [socket, data, status, setConversations]);
 }

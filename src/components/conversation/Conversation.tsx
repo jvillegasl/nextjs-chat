@@ -2,7 +2,7 @@
 
 import { clsx } from "clsx";
 import { IUserClient } from "@/models";
-import { useConversation, useContacts, useMessages } from "@/hooks";
+import { useConversations, useContacts, useMessages } from "@/hooks";
 import { ConversationInputBar } from "./ConversationInputBar";
 import { ConversationHeader } from "./ConversationHeader";
 import { ConversationBody } from "./ConversationBody";
@@ -11,7 +11,7 @@ import { ConversationCover } from "./ConversationCover";
 type ConversationProps = { className?: string; user: IUserClient };
 
 export function Conversation({ className, user }: ConversationProps) {
-	const { currentConversation } = useConversation();
+	const { currentConversation } = useConversations();
 	const { contacts } = useContacts();
 	const { messages, isFetching } = useMessages();
 
