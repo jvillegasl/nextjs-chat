@@ -13,7 +13,7 @@ type ConversationProps = { className?: string; user: IUserClient };
 
 export function Conversation({ className, user }: ConversationProps) {
 	const { currentConversation } = useConversations();
-	const { contacts } = useContacts();
+	const { contactsRecord } = useContacts();
 	const { messages, isFetching } = useMessages();
 
 	const [shouldScrollToBottom, setShouldScrollToBottom] =
@@ -40,7 +40,7 @@ export function Conversation({ className, user }: ConversationProps) {
 					<ConversationHeader conversation={currentConversation} />
 					<ConversationBody
 						conversationId={currentConversation.id}
-						contacts={contacts}
+						contacts={contactsRecord}
 						messages={messages}
 						user={user}
 						isFetching={isFetching}

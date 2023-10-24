@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, ReactNode, useState } from "react";
+import { useEffect, ReactNode, useState, useMemo } from "react";
 import { useSession } from "next-auth/react";
 import { useConversations } from "@/hooks";
 import { getContactById } from "@/actions";
@@ -8,32 +8,36 @@ import { ContactsContext, ContactsRecord } from "@/contexts";
 
 type ContactsProviderProps = {
 	children: ReactNode;
-	contacts?: ContactsRecord;
+	contactsRecord?: ContactsRecord;
 };
 
 export function ContactsProvider({
 	children,
-	contacts = {},
+	contactsRecord: _contactsRecord = {},
 }: ContactsProviderProps) {
 	const { data: session } = useSession();
 	const { currentConversation } = useConversations();
 
-	const [contactsState, setContactsState] =
-		useState<ContactsRecord>(contacts);
+	const [contactsRecord, setContactsRecord] =
+		useState<ContactsRecord>(_contactsRecord);
+	const contacts = useMemo(
+		() => Object.keys(contactsRecord).map((id) => contactsRecord[id]),
+		[contactsRecord],
+	);
 
 	useEffect(() => {
 		if (!currentConversation || !session) return;
 
-		if (currentConversation.contactId in contactsState) return;
+		if (currentConversation.contactId in contactsRecord) return;
 
 		getContactById(currentConversation.contactId).then((v) =>
-			setContactsState((t) => ({ ...t, [v.id]: v })),
+			setContactsRecord((t) => ({ ...t, [v.id]: v })),
 		);
-	}, [currentConversation, session, contactsState, setContactsState]);
+	}, [currentConversation, session, contactsRecord, setContactsRecord]);
 
 	return (
 		<ContactsContext.Provider
-			value={{ contacts: contactsState, setContacts: setContactsState }}
+			value={{ contactsRecord, contacts, setContactsRecord }}
 		>
 			{children}
 		</ContactsContext.Provider>

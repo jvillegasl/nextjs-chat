@@ -1,11 +1,12 @@
 import { Dispatch, SetStateAction, createContext } from "react";
 import { IUserClient } from "@/models";
 
-export type ContactsRecord = Prettify<Record<string, IUserClient>>;
+export type ContactsRecord = Record<string, IUserClient>;
 
 type ContactsContext = {
-	contacts: ContactsRecord;
-	setContacts: Dispatch<SetStateAction<ContactsRecord>>;
+	contactsRecord: ContactsRecord;
+	contacts: IUserClient[];
+	setContactsRecord: Dispatch<SetStateAction<ContactsRecord>>;
 };
 
 export const ContactsContext = createContext<ContactsContext | null>(null);

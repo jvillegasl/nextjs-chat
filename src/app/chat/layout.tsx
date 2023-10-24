@@ -21,7 +21,7 @@ export default async function ChatLayout({ children }: PropsWithChildren) {
 	return (
 		<SocketProvider>
 			<ConversationsProvider conversations={conversations}>
-				<ContactsProvider contacts={contactsRecord}>
+				<ContactsProvider contactsRecord={contactsRecord}>
 					<MessagesProvider>
 						<KeyBindingsWrapper>{children}</KeyBindingsWrapper>
 					</MessagesProvider>
