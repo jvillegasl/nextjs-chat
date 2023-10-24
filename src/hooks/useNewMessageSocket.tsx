@@ -13,22 +13,23 @@ export function useNewMessageSocket(conversationId: string) {
 		if (!socket || socket.hasListeners(event)) return;
 
 		socket.on(event, (newMessage: IMessageClient) => {
-			if (conversationId in messagesRecord) {
-				setMessagesRecord((t) => ({
-					...t,
-					[conversationId]: [...t[conversationId], newMessage],
-				}));
-			}
+			setMessagesRecord((prevState) => {
+				if (newMessage.conversationId in prevState) {
+					return {
+						...prevState,
+						[conversationId]: [
+							...prevState[conversationId],
+							newMessage,
+						],
+					};
+				}
 
-			const index = conversations.findIndex(
-				(t) => t.id === conversationId,
-			);
-
-			if (!index) return;
+				return prevState;
+			});
 
 			setConversations((prevState) =>
-				prevState.map((t, i) => {
-					if (i === index) {
+				prevState.map((t) => {
+					if (t.id === newMessage.conversationId) {
 						const lastMessage = {
 							authorId: newMessage.authorId,
 							content: newMessage.content,
