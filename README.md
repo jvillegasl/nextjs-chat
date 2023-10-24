@@ -49,27 +49,27 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
     -   [x] Login and Register APIs
     -   [x] Login and Register pages
     -   [x] Config middleware
--   [ ] Chat Backend
+-   [x] Chat Backend
 
-    -   [ ] Design models
-        -   [ ] User
-        -   [ ] Message
-        -   [ ] Conversation
+    -   [x] Design models
+        -   [x] User
+        -   [x] Message
+        -   [x] Conversation
     -   [x] APIs for messages
-    -   [ ] Sockets
+    -   [x] Sockets
         -   [x] New Message
         -   [x] Writing Message
-        -   [ ] New Conversation
+        -   [x] New Conversation
 
--   [ ] Chat Frontend
-    -   [ ] Sidebar
-    -   [ ] Searchbar
-    -   [ ] Conversation
-    -   [ ] Profile
-    -   [ ] Sockets
-        -   [ ] New Message
+-   [x] Chat Frontend
+    -   [x] Sidebar
+    -   [x] Searchbar
+    -   [x] Conversation
+    -   [x] Profile
+    -   [x] Sockets
+        -   [x] New Message
         -   [x] Writing Message
-        -   [ ] New Conversation
+        -   [x] New Conversation
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
