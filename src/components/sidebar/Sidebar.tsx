@@ -1,6 +1,7 @@
+import { SidebarProvider } from "@/providers";
 import { ContactsSearchBar } from "./ContactsSearchBar";
-import { ConversationsList } from "./ConversationsList";
 import { UserProfile } from "./UserProfile";
+import { SidebarBody } from "./SidebarBody";
 
 type SidebarProps = {
 	className?: string;
@@ -9,11 +10,11 @@ type SidebarProps = {
 export function Sidebar({ className }: SidebarProps) {
 	return (
 		<div className={className}>
-			<UserProfile />
-
-			<ContactsSearchBar />
-
-			<ConversationsList />
+			<SidebarProvider>
+				<UserProfile />
+				<ContactsSearchBar />
+				<SidebarBody />
+			</SidebarProvider>
 		</div>
 	);
 }
