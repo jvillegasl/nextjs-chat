@@ -29,7 +29,7 @@ MessageSchema.methods.toClient = function (this: IMessageDocument) {
 	const out: IMessageClient = {
 		authorId: obj.author.toString(),
 		content: obj.content,
-		conversationId: obj.author.toString(),
+		conversationId: obj.conversation.toString(),
 		createdAt: obj.createdAt.toISOString(),
 		updatedAt: obj.updatedAt.toISOString(),
 	};
