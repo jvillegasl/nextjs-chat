@@ -8,3 +8,4 @@ export * from "./useMessages";
 export * from "./useWriteMessage";
 export * from "./useWritingSocket";
 export * from "./useNewMessageSocket";
+export * from "./useSidebar";
