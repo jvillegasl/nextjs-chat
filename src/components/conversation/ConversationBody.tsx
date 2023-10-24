@@ -64,27 +64,24 @@ export function ConversationBody({
 					<CircularProgress size={64} />
 				</Box>
 			) : (
-				<>
-					<div className="h-10"></div>
-					<ul>
-						{messages.map((t, i) => {
-							const hour = getMessageHour(t.createdAt);
-							const liProps =
-								i === messages.length - 1
-									? { ref: lastSeenMessageRef }
-									: {};
-							return (
-								<li key={i} className="px-4 pb-1" {...liProps}>
-									<Message
-										content={t.content}
-										hour={hour}
-										alignEnd={t.authorId === user.id}
-									/>
-								</li>
-							);
-						})}
-					</ul>
-				</>
+				<ul className="mt-4">
+					{messages.map((t, i) => {
+						const hour = getMessageHour(t.createdAt);
+						const liProps =
+							i === messages.length - 1
+								? { ref: lastSeenMessageRef }
+								: {};
+						return (
+							<li key={i} className="px-4 pb-1" {...liProps}>
+								<Message
+									content={t.content}
+									hour={hour}
+									alignEnd={t.authorId === user.id}
+								/>
+							</li>
+						);
+					})}
+				</ul>
 			)}
 		</div>
 	);
