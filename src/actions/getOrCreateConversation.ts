@@ -19,7 +19,12 @@ export async function getOrCreateConversation(contactId: string) {
 		participants: { $size: 2, $all: [userId, contactId] },
 	});
 
-	if (conversation) return await conversation.toClient(userId);
+	if (conversation) {
+		return {
+			conversation: await conversation.toClient(userId),
+			created: false,
+		};
+	}
 
 	const newConversation = await Conversation.create({
 		participants: [userId, contactId],
@@ -27,5 +32,8 @@ export async function getOrCreateConversation(contactId: string) {
 
 	revalidatePath("/chat");
 
-	return await newConversation.toClient(userId);
+	return {
+		conversation: await newConversation.toClient(userId),
+		created: true,
+	};
 }

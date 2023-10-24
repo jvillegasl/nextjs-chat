@@ -9,10 +9,11 @@ type ContactItemButtonProps = {
 
 export function ContactItemButton({ contactId }: ContactItemButtonProps) {
 	const { socket } = useSocket();
-	const { setCurrentConversation } = useConversations();
+	const { setCurrentConversation, setConversations } = useConversations();
 
 	async function handleClick() {
-		const conversation = await getOrCreateConversation(contactId);
+		const { conversation, created } =
+			await getOrCreateConversation(contactId);
 
 		setCurrentConversation(conversation);
 
@@ -20,6 +21,10 @@ export function ContactItemButton({ contactId }: ContactItemButtonProps) {
 			contactId,
 			conversationId: conversation.id,
 		});
+
+		if (!created) return;
+
+		setConversations((t) => [...t, conversation]);
 	}
 
 	return <button onClick={handleClick}>Open/New Conversation</button>;
