@@ -16,16 +16,16 @@ type ConversationItemProps = {
 export function ConversationItem({ conversation }: ConversationItemProps) {
 	const { setCurrentConversation } = useConversations();
 
-	const { isWriting, userWriting } = useWritingSocket(conversation.id);
+	const { isTyping, userTyping } = useWritingSocket(conversation.id);
 	useNewMessageSocket(conversation.id);
 
 	const lastMessage = conversation.lastMessage;
 
 	function getConversationInfo() {
-		if (isWriting) {
+		if (isTyping) {
 			return (
 				<span className="italic text-green-500">
-					{userWriting} is Writing...
+					{userTyping} is Typing...
 				</span>
 			);
 		}

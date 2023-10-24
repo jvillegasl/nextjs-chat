@@ -9,8 +9,8 @@ export function useWritingSocket(
 
 	const timerRef = useRef<NodeJS.Timeout>();
 
-	const [isWriting, setIsWriting] = useState<boolean>(false);
-	const [userWriting, setUserWriting] = useState<string>();
+	const [isTyping, setIsTyping] = useState<boolean>(false);
+	const [userTyping, setUserTyping] = useState<string>();
 
 	useEffect(() => {
 		if (!socket) return;
@@ -21,12 +21,12 @@ export function useWritingSocket(
 
 		socket.on(event, (data) => {
 			clearTimeout(timerRef.current);
-			setUserWriting(data.username);
-			setIsWriting(true);
+			setUserTyping(data.username);
+			setIsTyping(true);
 
 			const timer = setTimeout(() => {
-				setUserWriting("");
-				setIsWriting(false);
+				setUserTyping("");
+				setIsTyping(false);
 			}, timeout);
 
 			timerRef.current = timer;
@@ -34,7 +34,7 @@ export function useWritingSocket(
 	}, [socket, conversationId, timeout]);
 
 	return {
-		isWriting,
-		userWriting,
+		isTyping,
+		userTyping,
 	};
 }
