@@ -7,10 +7,12 @@ import SendIcon from "@mui/icons-material/Send";
 
 type ConversationInputBarProps = {
 	conversationId: string;
+	onSubmitSuccess: () => void;
 };
 
 export function ConversationInputBar({
 	conversationId,
+	onSubmitSuccess,
 }: ConversationInputBarProps) {
 	const { message, setMessage, handleChange } =
 		useWriteMessage(conversationId);
@@ -32,6 +34,8 @@ export function ConversationInputBar({
 				conversationId,
 			}),
 		});
+
+		onSubmitSuccess();
 	};
 
 	return (

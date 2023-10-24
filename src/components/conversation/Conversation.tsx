@@ -7,6 +7,7 @@ import { ConversationInputBar } from "./ConversationInputBar";
 import { ConversationHeader } from "./ConversationHeader";
 import { ConversationBody } from "./ConversationBody";
 import { ConversationCover } from "./ConversationCover";
+import { useState } from "react";
 
 type ConversationProps = { className?: string; user: IUserClient };
 
@@ -14,6 +15,16 @@ export function Conversation({ className, user }: ConversationProps) {
 	const { currentConversation } = useConversations();
 	const { contacts } = useContacts();
 	const { messages, isFetching } = useMessages();
+
+	const [shouldScrollToBottom, setShouldScrollToBottom] =
+		useState<boolean>(false);
+	const scrollToBottom = (el: HTMLElement) => {
+		if (!shouldScrollToBottom) return;
+
+		setShouldScrollToBottom(false);
+
+		el.scrollTo(0, el.scrollHeight);
+	};
 
 	return (
 		<div
@@ -33,9 +44,11 @@ export function Conversation({ className, user }: ConversationProps) {
 						messages={messages}
 						user={user}
 						isFetching={isFetching}
+						scrollToBottom={scrollToBottom}
 					/>
 					<ConversationInputBar
 						conversationId={currentConversation.id}
+						onSubmitSuccess={() => setShouldScrollToBottom(true)}
 					/>
 				</>
 			)}

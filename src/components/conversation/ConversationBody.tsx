@@ -11,6 +11,7 @@ type ConversationBodyProps = {
 	user: IUserClient;
 	contacts: Record<string, IUserClient>;
 	isFetching: boolean;
+	scrollToBottom: (el: HTMLDivElement) => void;
 };
 
 export function ConversationBody({
@@ -18,9 +19,20 @@ export function ConversationBody({
 	messages,
 	user,
 	isFetching,
+	scrollToBottom,
 }: ConversationBodyProps) {
 	const bodyRef = useRef<HTMLDivElement>(null);
 	const lastSeenMessageRef = useRef<HTMLLIElement>(null);
+
+	useEffect(() => {
+		if (!bodyRef) return;
+
+		const bodyElement = bodyRef.current;
+
+		if (!bodyElement) return;
+
+		scrollToBottom(bodyElement);
+	}, [scrollToBottom]);
 
 	useEffect(() => {
 		if (isFetching) return;
