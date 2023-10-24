@@ -6,6 +6,6 @@ export * from "./useContacts";
 export * from "./useDebounce";
 export * from "./useMessages";
 export * from "./useWriteMessage";
-export * from "./useWritingSocket";
+export * from "./useTypingSocket";
 export * from "./useNewMessageSocket";
 export * from "./useSidebar";

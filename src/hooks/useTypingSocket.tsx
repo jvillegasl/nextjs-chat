@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSocket } from ".";
 
-export function useWritingSocket(
+export function useTypingSocket(
 	conversationId: string,
 	timeout: number = 1500,
 ) {

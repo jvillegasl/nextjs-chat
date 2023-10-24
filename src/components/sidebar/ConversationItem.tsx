@@ -5,7 +5,7 @@ import { IConversationClient } from "@/models";
 import {
 	useConversations,
 	useNewMessageSocket,
-	useWritingSocket,
+	useTypingSocket,
 } from "@/hooks";
 import { getLastMessageDate } from "@/utils";
 
@@ -16,7 +16,7 @@ type ConversationItemProps = {
 export function ConversationItem({ conversation }: ConversationItemProps) {
 	const { setCurrentConversation } = useConversations();
 
-	const { isTyping, userTyping } = useWritingSocket(conversation.id);
+	const { isTyping, userTyping } = useTypingSocket(conversation.id);
 	useNewMessageSocket(conversation.id);
 
 	const lastMessage = conversation.lastMessage;
