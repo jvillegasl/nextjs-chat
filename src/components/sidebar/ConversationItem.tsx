@@ -2,7 +2,11 @@
 
 import Image from "next/image";
 import { IConversationClient } from "@/models";
-import { useConversations, useWritingSocket } from "@/hooks";
+import {
+	useConversations,
+	useNewMessageSocket,
+	useWritingSocket,
+} from "@/hooks";
 import { getLastMessageDate } from "@/utils";
 
 type ConversationItemProps = {
@@ -11,7 +15,9 @@ type ConversationItemProps = {
 
 export function ConversationItem({ conversation }: ConversationItemProps) {
 	const { setCurrentConversation } = useConversations();
+
 	const { isWriting, userWriting } = useWritingSocket(conversation.id);
+	useNewMessageSocket(conversation.id);
 
 	const lastMessage = conversation.lastMessage;
 

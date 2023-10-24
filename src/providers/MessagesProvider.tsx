@@ -2,7 +2,7 @@
 
 import { getMessages } from "@/actions";
 import { MessagesContext } from "@/contexts";
-import { useConversations, useSocket } from "@/hooks";
+import { useConversations } from "@/hooks";
 import { IMessageClient } from "@/models";
 import { ReactNode, useEffect, useMemo, useState, useTransition } from "react";
 
@@ -13,7 +13,6 @@ type MessagesProviderProps = {
 type MessagesRecord = Record<string, IMessageClient[]>;
 
 export function MessagesProvider({ children }: MessagesProviderProps) {
-	const { socket } = useSocket();
 	const { currentConversation } = useConversations();
 
 	const [messagesRecord, setMessagesRecord] = useState<MessagesRecord>({});
@@ -40,25 +39,6 @@ export function MessagesProvider({ children }: MessagesProviderProps) {
 			}));
 		});
 	}, [currentConversation, messagesRecord]);
-
-	// Socket listener to add new message
-	useEffect(() => {
-		if (!currentConversation) return;
-
-		const event = `${currentConversation.id}/chat:message:new`;
-
-		if (!socket || socket.hasListeners(event)) return;
-
-		socket.on(event, (v) =>
-			setMessagesRecord((t) => {
-				const newRecord = { ...t };
-
-				newRecord[currentConversation.id].push(v);
-
-				return newRecord;
-			}),
-		);
-	}, [socket, currentConversation]);
 
 	return (
 		<MessagesContext.Provider
