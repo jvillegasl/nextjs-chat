@@ -36,7 +36,10 @@ cd nextjs-chat
 docker-compose up
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. Login using the following credentials:
+
+-   Username: user01
+-   Password: 12345678
 
 ## Roadmap
 
