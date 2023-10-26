@@ -1,6 +1,10 @@
 import { RegisterForm } from "@/components/auth";
 import { Box, Container, Link, Typography } from "@mui/material";
 
+export const metadata = {
+	title: "Register",
+};
+
 export default function RegisterPage() {
 	return (
 		<Container component="main">

@@ -1,6 +1,10 @@
 import { LoginForm } from "@/components/auth";
 import { Box, Container, Link, Typography } from "@mui/material";
 
+export const metadata = {
+	title: "Login",
+};
+
 export default function LoginPage() {
 	return (
 		<Container component="main">
