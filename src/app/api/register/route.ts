@@ -1,5 +1,6 @@
 import { dbConnect, errorHandler } from "@/lib";
 import { User } from "@/models";
+import { getPictureURL } from "@/utils";
 
 export async function POST(request: Request) {
 	return errorHandler(async () => {
@@ -7,7 +8,8 @@ export async function POST(request: Request) {
 
 		await dbConnect();
 
-		const newUser = new User(data);
+		const picture = getPictureURL(data.username);
+		const newUser = new User({ ...data, picture });
 
 		const user = (await newUser.save()).toClient();
 
