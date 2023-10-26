@@ -1,10 +1,22 @@
 db.createUser({
-	user: "test_user",
-	pwd: "test_pass",
+	user: "dev_user",
+	pwd: "dev_pass",
 	roles: [
 		{
 			role: "readWrite",
-			db: "javl",
+			db: "development",
+		},
+	],
+});
+
+db = db.getSiblingDB("production");
+db.createUser({
+	user: "prod_user",
+	pwd: "prod_pass",
+	roles: [
+		{
+			role: "readWrite",
+			db: "production",
 		},
 	],
 });
